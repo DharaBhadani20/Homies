@@ -169,35 +169,6 @@ class _LoginState extends State<Login> {
                   ),
                   color: Colors.grey[400],
                   onPressed: () {},
-
-                  //  login,
-
-                  // if (_loginFormKey.currentState.validate()) {
-                  //   FirebaseAuth.instance
-                  //       .signInWithEmailAndPassword(
-                  //           email: emailController.text,
-                  //           password: passwordController.text)
-                  //       .then((currentUser) => FirebaseFirestore.instance
-                  //           .collection("users")
-                  //           .doc(currentUser.uid)
-                  //           .get()
-                  //           .then((DocumentSnapshot result) =>
-                  //               Navigator.pushReplacement(
-                  //                   context,
-                  //                   MaterialPageRoute(
-                  //                       builder: (context) => Home(
-                  //                             title: result["fname"] +
-                  //                                 "'s Tasks",
-                  //                             uid: currentUser.uid,
-                  //                           ))))
-                  //           .catchError((err) => print(err)))
-                  //       .catchError((err) => print(err));
-                  // }
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => Home()),
-                  // );
-                  // },
                   child: Text(
                     'Login',
                     style: TextStyle(fontSize: 22),

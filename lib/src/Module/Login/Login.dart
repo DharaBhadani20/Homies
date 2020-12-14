@@ -2,26 +2,112 @@ import 'package:Homies/src/Module/ForgotPassword/ForgotPassword.dart';
 import 'package:Homies/src/Module/LoginWithPhone/PhoneLogin.dart';
 import 'package:Homies/src/Module/Logo/Logo.dart';
 import 'package:Homies/src/Module/Registration/Registration.dart';
+import 'package:Homies/src/User_Drawer/User_Drawer.dart';
+import 'package:Homies/src/rootpage.dart';
 // import 'package:SocietyManagementSystem/src/User_Home/Home.dart';
 import 'package:Homies/src/utils/network_dio/validators.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Homies/src/authentication.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:Homies/src/Model/todo.dart';
 
 class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+  Login({Key key,this.auth,this.userId, this.loginCallback,this.logoutCallback}) : super(key: key);
+  
+   final BaseAuth auth;
+  final VoidCallback loginCallback;
+  final VoidCallback logoutCallback;
+  final String userId;
 
   @override
-  _LoginState createState() => _LoginState();
+  State<StatefulWidget> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  // String _email, _password;
+    final _formKey = new GlobalKey<FormState>();
+
+  String _email, _password;
+  String _errorMessage;
+
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   int _value = 0;
 
   bool _obscureText = true;
+
+  bool _isLoginForm;
+  bool _isLoading;
+
+  // Check if form is valid before perform login or signup
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  // Perform login or signup
+  void validateAndSubmit() async {
+  
+    setState(() {
+      _errorMessage = "";
+      _isLoading = true;
+    });
+    if (validateAndSave()) {
+      String userId = "";
+      try {
+        if (_isLoginForm) {
+          userId = await widget.auth.signIn(_email, _password);
+          print('Signed in: $userId');
+        } else {
+          userId = await widget.auth.signUp(_email, _password);
+          //widget.auth.sendEmailVerification();
+          //_showVerifyEmailSentDialog();
+          print('Signed up user: $userId');
+        }
+        setState(() {
+          _isLoading = false;
+        });
+
+        if (userId.length > 0 && userId != null && _isLoginForm) {
+          widget.loginCallback();
+        }
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
+      }
+    }
+  }
+
+ @override
+  void initState() {
+    _errorMessage = "";
+    _isLoading = false;
+    _isLoginForm = true;
+    super.initState();
+  }
+
+  void resetForm() {
+    _formKey.currentState.reset();
+    _errorMessage = "";
+  }
+
+  void toggleFormMode() {
+    resetForm();
+    setState(() {
+      _isLoginForm = !_isLoginForm;
+    });
+  }
+
+
   void _togglePasswordStatus() {
     setState(() {
       _obscureText = !_obscureText;
@@ -73,9 +159,7 @@ class _LoginState extends State<Login> {
                 ),
                 TextFormField(
                   controller: emailController,
-                  validator: (value) => Validators.validateEmail(value),
-                  // onSaved: (value) => _email = value,
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -91,14 +175,14 @@ class _LoginState extends State<Login> {
                       color: Colors.grey,
                     ),
                   ),
+                  validator: (value) => Validators.validateEmail(value),
+                  onSaved: (value) => _email = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   controller: passwordController,
-                  validator: (value) => Validators.validatePassword(value),
-                  // onSaved: (value) => _password = value,
                   obscureText: _obscureText,
                   // cursorHeight: 25,
                   cursorColor: Colors.grey,
@@ -124,6 +208,8 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
+                  validator: (value) => Validators.validatePassword(value),
+                  onSaved: (value) => _password = value.trim(),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -168,7 +254,13 @@ class _LoginState extends State<Login> {
                     side: BorderSide(width: 1),
                   ),
                   color: Colors.grey[400],
-                  onPressed: () {},
+                  onPressed: () {
+                    validateAndSubmit();
+                  // final String cuid = UserCredential.user.uid;
+                  // print(cuid);
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => UserDrawer()));
+                  },
                   child: Text(
                     'Login',
                     style: TextStyle(fontSize: 22),

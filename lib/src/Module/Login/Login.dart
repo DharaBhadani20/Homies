@@ -185,7 +185,6 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 20,
                 ),
-
                 TextFormField(
                   controller: passwordController,
                   obscureText: _obscureText,

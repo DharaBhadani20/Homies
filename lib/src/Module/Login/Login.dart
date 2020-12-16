@@ -3,10 +3,10 @@ import 'package:Homies/src/Module/LoginWithPhone/PhoneLogin.dart';
 import 'package:Homies/src/Module/Logo/Logo.dart';
 import 'package:Homies/src/Module/Registration/Registration.dart';
 import 'package:Homies/src/User_Drawer/User_Drawer.dart';
-import 'package:Homies/src/rootpage.dart';
+// import 'package:Homies/src/rootpage.dart';
 // import 'package:SocietyManagementSystem/src/User_Home/Home.dart';
 import 'package:Homies/src/utils/network_dio/validators.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:Homies/src/authentication.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
   String _email, _password;
   String _errorMessage;
 
-  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   int _value = 0;
@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: SingleChildScrollView(
           child: Form(
-            key: _loginFormKey,
+            key: _formKey,
             child: Column(
               children: <Widget>[
                 Logo(),

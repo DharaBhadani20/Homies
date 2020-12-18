@@ -35,7 +35,6 @@ class _LoginState extends State<Login> {
 
   String _email, _password;
   String _errorMessage;
-
   // final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
@@ -81,16 +80,17 @@ class _LoginState extends State<Login> {
         _isLoading = false;
       });
 
-      if (userId.length > 0 && userId != null && _isLoginForm) {
-        widget.loginCallback();
+        if (userId.length > 0 && userId != null && _isLoginForm) {
+          widget.loginCallback();
+        }
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
+        });
       }
-    } catch (e) {
-      print('Error: $e');
-      setState(() {
-        _isLoading = false;
-        _errorMessage = e.message;
-        _formKey.currentState.reset();
-      });
     }
   }
                     

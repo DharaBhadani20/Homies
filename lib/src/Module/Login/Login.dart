@@ -67,7 +67,10 @@ class _LoginState extends State<Login> {
     try {
       if (_isLoginForm) {
         userId = await widget.auth.signIn(_email, _password);
+
         print('Signed in: $userId');
+        Navigator.push(context,
+                MaterialPageRoute(builder: (context) => UserDrawer()));
       } else {
         userId = await widget.auth.signUp(_email, _password);
         //widget.auth.sendEmailVerification();
@@ -90,6 +93,7 @@ class _LoginState extends State<Login> {
       });
     }
   }
+                    
 
   @override
   void initState() {
@@ -212,7 +216,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  //validator: (value) => Validators.validatePassword(value),
+                  validator: (value) => Validators.validatePassword(value),
                   onSaved: (value) => _password = value.trim(),
                   onChanged: (value) => _password = value.trim(),
                 ),

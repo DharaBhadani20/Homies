@@ -63,37 +63,35 @@ class _LoginState extends State<Login> {
       print(validateAndSave());
     });
     String userId = "";
-    try {
-      if (_isLoginForm) {
-        userId = await widget.auth.signIn(_email, _password);
-
-        print('Signed in: $userId');
-        Navigator.push(context,
-                MaterialPageRoute(builder: (context) => UserDrawer()));
-      } else {
-        userId = await widget.auth.signUp(_email, _password);
-        //widget.auth.sendEmailVerification();
-        //_showVerifyEmailSentDialog();
-        print('Signed up user: $userId');
-      }
-      setState(() {
-        _isLoading = false;
-      });
+    print(_isLoginForm);
+    if (validateAndSave()) {
+      try {
+        if (_isLoginForm) {
+          userId = await widget.auth.signIn(_email, _password);
+          print('Signed in: $userId');
+        } else {
+          userId = await widget.auth.signUp(_email, _password);
+          //widget.auth.sendEmailVerification();
+          //_showVerifyEmailSentDialog();
+          print('Signed up user: $userId');
+        }
+        setState(() {
+          _isLoading = false;
+        });
 
         if (userId.length > 0 && userId != null && _isLoginForm) {
           widget.loginCallback();
         }
       } catch (e) {
-        print('Error: $e');
+        //print('Error: $e');
         setState(() {
           _isLoading = false;
-          _errorMessage = e.message;
+          //_errorMessage = e.message;
           _formKey.currentState.reset();
         });
       }
     }
   }
-                    
 
   @override
   void initState() {
@@ -216,7 +214,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  validator: (value) => Validators.validatePassword(value),
+                  //validator: (value) => Validators.validatePassword(value),
                   onSaved: (value) => _password = value.trim(),
                   onChanged: (value) => _password = value.trim(),
                 ),

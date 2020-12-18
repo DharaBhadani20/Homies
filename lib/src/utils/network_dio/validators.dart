@@ -1,4 +1,5 @@
 class Validators {
+
   //For Email Verification we using RegEx.
   static String validateEmail(String value) {
     String pattern =
@@ -22,6 +23,32 @@ class Validators {
       return "Password is Required";
     } else if (!regExp.hasMatch(value)) {
       return "Minimum 8 characters password required with a combination of\nuppercase and lowercase letter and number are required.";
+    } else {
+      return null;
+    }
+  }
+
+//For Phone Number validation
+  static String validatePhone(String value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return 'Please enter mobile number';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter valid mobile number';
+    }
+    return null;
+  }
+
+//For Email Verification we using RegEx.
+  static String validateUser(String value) {
+    String pattern =
+        r'^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$';
+    RegExp regExp = new RegExp(pattern);
+    if (value == null || value.length <= 0) {
+      return "fill up name field";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid name";
     } else {
       return null;
     }

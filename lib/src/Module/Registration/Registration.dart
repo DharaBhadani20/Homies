@@ -1,18 +1,35 @@
 import 'package:Homies/src/Module/Logo/Logo.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Homies/src/utils/network_dio/validators.dart';
+
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() {
   runApp(MaterialApp());
 }
 
 class Registration extends StatefulWidget {
+  final String title = 'Registration';
+  
   @override
   _RegistrationState createState() => _RegistrationState();
+  
 }
 
 class _RegistrationState extends State<Registration> {
   // String _email, _password;
-  final GlobalKey<FormState> _registrationFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();  
+bool _success;
+String _userEmail;
+
+
+
+
+  // final GlobalKey<FormState> _registrationFormKey = GlobalKey<FormState>();
   bool _obscureText = true;
   void _togglePasswordStatus() {
     setState(() {
@@ -43,6 +60,25 @@ class _RegistrationState extends State<Registration> {
   //   }
   // }
 
+  void _register() async {
+  final User user = (await 
+      _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      )
+  ).user;
+  if (user != null) {
+    setState(() {
+      _success = true;
+      _userEmail = user.email;
+    });
+  } else {
+    setState(() {
+      _success = true;
+    });
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +86,7 @@ class _RegistrationState extends State<Registration> {
         padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: SingleChildScrollView(
           child: Form(
-            key: _registrationFormKey,
+            key: _formKey,
             child: Column(
               children: [
                 Logo(),
@@ -65,7 +101,7 @@ class _RegistrationState extends State<Registration> {
                   height: 20,
                 ),
                 TextFormField(
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   cursorColor: Colors.grey,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -74,18 +110,87 @@ class _RegistrationState extends State<Registration> {
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
                         borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Full Name',
+                    hintText: 'First Name',
                     prefixIcon: Icon(
                       Icons.person,
                       color: Colors.grey,
                     ),
                   ),
+                //    validator: (String value){
+                //     if(value.isEmpty)
+                //     {
+                //       return 'please enter first name';
+                //     }
+                //     return null;
+                //   },
+                  validator: (value) => Validators.validateUser(value),
+
+                ),
+                
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  cursorHeight: 25,
+                  cursorColor: Colors.grey,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    hintText: 'Middle Name',
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  //  validator: (String value){
+                  //   if(value.isEmpty)
+                  //   {
+                  //     return 'please enter Middle name';
+                  //   }
+                  //   return null;
+                  // },
+                  validator: (value) => Validators.validateUser(value),
+
+                  
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
+                  cursorColor: Colors.grey,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    hintText: 'Last Name',
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  validator: (value) => Validators.validateUser(value),
+
+                  //  validator: (String value){
+                  //   if(value.isEmpty)
+                  //   {
+                  //     return 'please enter Last name';
+                  //   }
+                  //   return null;
+                  // },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  cursorHeight: 25,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -99,12 +204,19 @@ class _RegistrationState extends State<Registration> {
                       color: Colors.grey,
                     ),
                   ),
+                   validator: (String value){
+                    if(value.isEmpty)
+                    {
+                      return 'please enter your Address';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -118,12 +230,22 @@ class _RegistrationState extends State<Registration> {
                       color: Colors.grey,
                     ),
                   ),
+                  validator: (value) => Validators.validatePhone(value),
+
+                  //  validator: (String value){
+                  //   if(value.isEmpty)
+                  //   {
+                  //     return 'please enter your phone Number';
+                  //   }
+                  //   return null;
+                  // },
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -132,18 +254,28 @@ class _RegistrationState extends State<Registration> {
                         borderRadius: BorderRadius.circular(32.0),
                         borderSide: BorderSide(color: Colors.grey)),
                     hintText: 'Email',
+                    
                     prefixIcon: Icon(
                       Icons.mail_outline,
                       color: Colors.grey,
                     ),
                   ),
+                validator: (value) => Validators.validateEmail(value),
+
+                  // validator: (String value){
+                  //   if(value.isEmpty)
+                  //   {
+                  //     return 'enter proper email';
+                  //   }
+                  //   return null;
+                  // },
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   obscureText: _obscureText,
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -166,13 +298,22 @@ class _RegistrationState extends State<Registration> {
                       ),
                     ),
                   ),
+                  validator: (value) => Validators.validatePassword(value),
+
+                  //  validator: (String value){
+                  //   if(value.isEmpty)
+                  //   {
+                  //     return 'Please enter password';
+                  //   }
+                  //   return null;
+                  // },
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   obscureText: _obscureText,
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -195,6 +336,13 @@ class _RegistrationState extends State<Registration> {
                       ),
                     ),
                   ),
+                   validator: (String value){
+                    if(value.isEmpty)
+                    {
+                      return 'Please enter confirm password ';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(
                   height: 20,
@@ -206,17 +354,37 @@ class _RegistrationState extends State<Registration> {
                     side: BorderSide(width: 1),
                   ),
                   color: Colors.grey[400],
-                  onPressed: () {},
+                  // onPressed: () {},
+                  onPressed: () async {
+                if (_formKey.currentState.validate()) {
+                  _register();
+                }
+              },
                   child: Text(
                     'Continue',
                     style: TextStyle(fontSize: 22),
                   ),
                 ),
+                 Container(
+            alignment: Alignment.center,
+            child: Text(_success == null
+                ? ''
+                : (_success
+                    ? 'Successfully registered ' + _userEmail
+                    : 'Registration failed')),
+          )
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+@override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

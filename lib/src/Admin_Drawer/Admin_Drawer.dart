@@ -4,6 +4,8 @@ import 'package:Homies/src/Admin_Drawer/AdminHome.dart';
 import 'package:flutter/material.dart';
 
 class AdminDrawer extends StatefulWidget {
+  String uid;
+  AdminDrawer({Key key, @required this.uid}) : super(key: key);
   @override
   _AdminDrawerState createState() => _AdminDrawerState();
 }
@@ -11,6 +13,7 @@ class AdminDrawer extends StatefulWidget {
 class _AdminDrawerState extends State<AdminDrawer> {
   @override
   Widget build(BuildContext context) {
+    String _uid = widget.uid;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -54,7 +57,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AdminHomePage(),
+                  builder: (context) => AdminHomePage(uid: _uid),
                 ),
               );
             },
@@ -149,8 +152,10 @@ class _AdminDrawerState extends State<AdminDrawer> {
               ],
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AdminProfilePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AdminProfilePage(uid: _uid)));
             },
           ),
         ],

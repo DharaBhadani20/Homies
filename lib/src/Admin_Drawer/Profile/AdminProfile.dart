@@ -7,38 +7,52 @@ import 'package:flutter/material.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class AdminProfilePage extends StatefulWidget {
-  // String _uid;
-  // AdminProfilePage({this._uid})
+  String uid;
+  AdminProfilePage({Key key, @required this.uid}) : super(key: key);
   @override
   _AdminProfilePageState createState() => _AdminProfilePageState();
 }
 
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
-String _uid = auth.currentUser.uid;
-String _fname;
+
+String _fname, _contact;
 
 class _AdminProfilePageState extends State<AdminProfilePage> {
-  void getdata() {
+  // void getdata() {
+
+  // }
+
+  // void initState() {
+  //   super.initState();
+  //   getdata();
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    String _uid = widget.uid;
     dbref
-        .child("User")
+        .child("user")
         .child(_uid)
         .child("first_name")
         .once()
         .then((DataSnapshot snapshot) {
       setState(() {
         _fname = snapshot.value;
+        print(_fname);
       });
     });
-  }
-
-  void initState() {
-    super.initState();
-    getdata();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("contact")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _contact = snapshot.value;
+        print(_contact);
+      });
+    });
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -88,7 +102,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
           ),
         ),
       ),
-      drawer: AdminDrawer(),
+      drawer: AdminDrawer(uid: _uid),
     );
   }
 
@@ -140,7 +154,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Contact No."),
+        child: Text("Contact No.: $_contact"),
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:Homies/src/Admin_Drawer/Admin_Drawer.dart';
 import 'package:flutter/material.dart';
 
 class AdminHomePage extends StatefulWidget {
+  String uid;
+  AdminHomePage({Key key, @required this.uid}): super(key:key);
   @override
   _AdminHomePageState createState() => _AdminHomePageState();
 }
@@ -9,6 +11,7 @@ class AdminHomePage extends StatefulWidget {
 class _AdminHomePageState extends State<AdminHomePage> {
   @override
   Widget build(BuildContext context) {
+      String _uid= widget.uid;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -21,7 +24,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
           ),
         ),
       ),
-      drawer: AdminDrawer(),
+      drawer: AdminDrawer(uid: _uid),
       body: Container(
         alignment: Alignment.center,
         child: Image(

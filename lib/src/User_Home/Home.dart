@@ -4,6 +4,7 @@ import 'package:Homies/src/User_Home/Service/Service.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
   String uid;
   Home({Key key, @required this.uid}) : super(key: key);

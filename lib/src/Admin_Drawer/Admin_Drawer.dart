@@ -3,6 +3,7 @@ import 'package:Homies/src/Admin_Drawer/Profile/AdminProfile.dart';
 import 'package:Homies/src/Admin_Drawer/AdminHome.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AdminDrawer extends StatefulWidget {
   String uid;
   AdminDrawer({Key key, @required this.uid}) : super(key: key);

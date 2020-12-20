@@ -5,6 +5,7 @@ import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryProfile.da
 import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SecretaryDrawer extends StatefulWidget {
   String uid;
   SecretaryDrawer({Key key, @required this.uid}) : super(key: key);

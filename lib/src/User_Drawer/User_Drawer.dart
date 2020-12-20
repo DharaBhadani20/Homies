@@ -5,6 +5,7 @@ import 'package:Homies/src/User_Home/Home.dart';
 import 'package:Homies/src/User_Drawer/GiveFeedback.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class UserDrawer extends StatefulWidget {
   String uid;
   UserDrawer({Key key, @required this.uid}) : super(key: key);

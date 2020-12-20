@@ -16,7 +16,7 @@ class AdminProfilePage extends StatefulWidget {
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
-String _fname, _contact;
+String _fname, _lname, _contact;
 
 class _AdminProfilePageState extends State<AdminProfilePage> {
   // void getdata() {
@@ -40,6 +40,17 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       setState(() {
         _fname = snapshot.value;
         print(_fname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("last_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _lname = snapshot.value;
+        print(_lname);
       });
     });
     dbref
@@ -139,7 +150,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: Colors.grey),
       ),
-      child: Align(alignment: Alignment.centerLeft, child: Text(_fname)),
+      child: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(children: <Widget>[Text(_fname), Text(_lname)])),
     );
   }
 
@@ -154,7 +167,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Contact No.:- $_contact"),
+        child: Text(_contact),
       ),
     );
   }

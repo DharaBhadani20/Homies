@@ -2,6 +2,8 @@ import 'package:Homies/src/Secretary_Drawer/Secretary_Drawer.dart';
 import 'package:flutter/material.dart';
 
 class SecretaryHomePage extends StatefulWidget {
+  String uid;
+  SecretaryHomePage({Key key, @required this.uid}) : super(key: key);
   @override
   _SecretaryHomePageState createState() => _SecretaryHomePageState();
 }
@@ -9,6 +11,7 @@ class SecretaryHomePage extends StatefulWidget {
 class _SecretaryHomePageState extends State<SecretaryHomePage> {
   @override
   Widget build(BuildContext context) {
+    String _uid = widget.uid;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -21,7 +24,9 @@ class _SecretaryHomePageState extends State<SecretaryHomePage> {
           ),
         ),
       ),
-      drawer: SecretaryDrawer(),
+      drawer: SecretaryDrawer(
+        uid: _uid,
+      ),
       body: Container(
         alignment: Alignment.center,
         child: Image(

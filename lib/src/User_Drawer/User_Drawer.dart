@@ -6,6 +6,8 @@ import 'package:Homies/src/User_Drawer/GiveFeedback.dart';
 import 'package:flutter/material.dart';
 
 class UserDrawer extends StatefulWidget {
+  String uid;
+  UserDrawer({Key key, @required this.uid}) : super(key: key);
   @override
   _UserDrawerState createState() => _UserDrawerState();
 }
@@ -13,6 +15,7 @@ class UserDrawer extends StatefulWidget {
 class _UserDrawerState extends State<UserDrawer> {
   @override
   Widget build(BuildContext context) {
+    String _uid = widget.uid;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -56,7 +59,9 @@ class _UserDrawerState extends State<UserDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Home(),
+                  builder: (context) => Home(
+                    uid: _uid,
+                  ),
                 ),
               );
             },
@@ -137,7 +142,9 @@ class _UserDrawerState extends State<UserDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserProfilePage(),
+                  builder: (context) => UserProfilePage(
+                    uid: _uid,
+                  ),
                 ),
               );
             },

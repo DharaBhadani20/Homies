@@ -154,7 +154,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Contact No.: $_contact"),
+        child: Text("Contact No.:- $_contact"),
       ),
     );
   }

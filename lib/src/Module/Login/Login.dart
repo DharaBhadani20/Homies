@@ -1,16 +1,16 @@
+import 'package:Homies/src/Admin_Drawer/AdminHome.dart';
 import 'package:Homies/src/Module/ForgotPassword/ForgotPassword.dart';
 import 'package:Homies/src/Module/LoginWithPhone/PhoneLogin.dart';
 import 'package:Homies/src/Module/Logo/Logo.dart';
 import 'package:Homies/src/Module/Registration/Registration.dart';
-import 'package:Homies/src/User_Drawer/User_Drawer.dart';
-// import 'package:Homies/src/rootpage.dart';
-// import 'package:SocietyManagementSystem/src/User_Home/Home.dart';
+import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
+
 import 'package:Homies/src/utils/network_dio/validators.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:Homies/src/authentication.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:Homies/src/Model/todo.dart';
+
+import '../../User_Home/Home.dart';
 
 class Login extends StatefulWidget {
   Login(
@@ -60,36 +60,49 @@ class _LoginState extends State<Login> {
     setState(() {
       _errorMessage = "";
       _isLoading = true;
-      print(validateAndSave());
+      //print(validateAndSave());
     });
     String userId = "";
     print(_isLoginForm);
-    if (validateAndSave()) {
-      try {
-        if (_isLoginForm) {
-          userId = await widget.auth.signIn(_email, _password);
-          print('Signed in: $userId');
+    // if (validateAndSave()) {
+    try {
+      if (_isLoginForm) {
+        userId = await widget.auth.signIn(_email, _password);
+        print('Signed in: $userId');
+        if (_email == "pragativekariya2601@gmail.com") {
+          print('admin');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AdminHomePage(uid: userId)));
+        } else if (_email == "mittalsavaliya149@gmail.com" ||
+            _email == "dharabhadani16@gmail.com") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SecretaryHomePage()));
         } else {
-          userId = await widget.auth.signUp(_email, _password);
-          //widget.auth.sendEmailVerification();
-          //_showVerifyEmailSentDialog();
-          print('Signed up user: $userId');
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Home()));
         }
-        setState(() {
-          _isLoading = false;
-        });
-
-        if (userId.length > 0 && userId != null && _isLoginForm) {
-          widget.loginCallback();
-        }
-      } catch (e) {
-        //print('Error: $e');
-        setState(() {
-          _isLoading = false;
-          //_errorMessage = e.message;
-          _formKey.currentState.reset();
-        });
+      } else {
+        userId = await widget.auth.signUp(_email, _password);
+        //widget.auth.sendEmailVerification();
+        //_showVerifyEmailSentDialog();
+        print('Signed up user: $userId');
       }
+      setState(() {
+        _isLoading = false;
+      });
+
+      if (userId.length > 0 && userId != null && _isLoginForm) {
+        widget.loginCallback();
+      }
+    } catch (e) {
+      //print('Error: $e');
+      setState(() {
+        _isLoading = false;
+        //_errorMessage = e.message;
+        _formKey.currentState.reset();
+      });
     }
   }
 
@@ -118,28 +131,6 @@ class _LoginState extends State<Login> {
       _obscureText = !_obscureText;
     });
   }
-
-  // Future<void> login() async {
-  //   final formState = _loginFormKey.currentState;
-  //   if (formState.validate()) {
-  //     formState.save();
-  //     try {
-  //       FirebaseUser user = await FirebaseAuth.instance
-  //           .signInWithEmailAndPassword(email: _email, password: _password);
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => Home(user: user),
-  //         ),
-  //       );
-  //     } catch (e) {
-  //       print(e.message);
-  //       // AlertDialog(
-  //       //   title: Text("Please Regisater"),
-  //       // );
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +205,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  //validator: (value) => Validators.validatePassword(value),
+                  validator: (value) => Validators.validatePassword(value),
                   onSaved: (value) => _password = value.trim(),
                   onChanged: (value) => _password = value.trim(),
                 ),
@@ -265,9 +256,6 @@ class _LoginState extends State<Login> {
                     validateAndSubmit();
                     print(_email);
                     print(_password);
-
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => UserDrawer()));
                   },
                   child: Text(
                     'Login',

@@ -1,19 +1,26 @@
 import 'package:Homies/src/Module/Logo/Logo.dart';
-import 'package:Homies/src/User_Home/Home.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:pinput/pin_put/pin_put.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() {
   runApp(MaterialApp());
 }
 
 class OTP extends StatefulWidget {
+  
   @override
   _OTPState createState() => _OTPState();
 }
 
 class _OTPState extends State<OTP> {
+  String _verificationId;
+  String _smsController;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
       color: Colors.white,
@@ -21,6 +28,27 @@ class _OTPState extends State<OTP> {
       borderRadius: BorderRadius.circular(30.0),
     );
   }
+
+void showSnackbar(String message) {
+  _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(message)));
+}
+
+  void signInWithPhoneNumber() async {
+  
+  try {
+    final AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: _verificationId,
+      smsCode: _smsController,
+    );
+
+    final User user = (await _auth.signInWithCredential(credential)).user;
+
+    showSnackbar("Successfully signed in UID: ${user.uid}");
+  } catch (e) {
+    showSnackbar("Failed to sign in: " + e.toString());
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +104,15 @@ class _OTPState extends State<OTP> {
                 side: BorderSide(width: 1),
               ),
               color: Colors.grey[400],
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
+              // onPressed: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => Home()),
+              //   );
+              // },
+               onPressed: () async {
+        signInWithPhoneNumber();
+      },
               child: Text(
                 'Next',
                 style: TextStyle(fontSize: 22),

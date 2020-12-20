@@ -59,25 +59,25 @@ class _AdminDrawerState extends State<AdminDrawer> {
               );
             },
           ),
-          ListTile(
-            title: Row(
-              children: <Widget>[
-                Icon(Icons.person_add),
-                SizedBox(
-                  width: 3,
-                ),
-                Text('Add Secretary'),
-              ],
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddRemoveSecretory(),
-                ),
-              );
-            },
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: <Widget>[
+          //       Icon(Icons.person_add),
+          //       SizedBox(
+          //         width: 3,
+          //       ),
+          //       Text('Add Secretary'),
+          //     ],
+          //   ),
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => AddRemoveSecretory(),
+          //       ),
+          //     );
+          //   },
+          // ),
           Divider(
             indent: 0,
             color: Colors.grey,

@@ -1,33 +1,41 @@
+import 'package:Homies/src/Module/Login/Login.dart';
 import 'package:Homies/src/Module/Logo/Logo.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Homies/src/utils/network_dio/validators.dart';
 
-
 final FirebaseAuth _auth = FirebaseAuth.instance;
-
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
 void main() {
   runApp(MaterialApp());
 }
 
 class Registration extends StatefulWidget {
   final String title = 'Registration';
-  
+
   @override
   _RegistrationState createState() => _RegistrationState();
-  
 }
 
 class _RegistrationState extends State<Registration> {
   // String _email, _password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-final TextEditingController _emailController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();  
-bool _success;
-String _userEmail;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _success;
+  String _userEmail,
+      _fname,
+      _mname,
+      _lname,
+      _password,
+      _address,
+      _contact,
+      _confpassword,
+      _usertype = "Resident Owner";
 
-
-
+  // SharedPreferences pr = await SharedPreferences.getInstance();
+  // uid = pr.getString('uid');
 
   // final GlobalKey<FormState> _registrationFormKey = GlobalKey<FormState>();
   bool _obscureText = true;
@@ -37,47 +45,36 @@ String _userEmail;
     });
   }
 
-  // void registration() async {
-  //   if (_registrationFormKey.currentState.validate()) {
-  //     _registrationFormKey.currentState.save();
-  //     try {
-  //       FirebaseUser user = await FirebaseAuth.instance
-  //           .createUserWithEmailAndPassword(email: _email, password: _password);
-  //       user.sendEmailVerification();
-  //       Navigator.of(context).pop();
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => Login(),
-  //         ),
-  //       );
-  //     } catch (e) {
-  //       print(e.message);
-  //       // AlertDialog(
-  //       //   title: Text("Please Regisater"),
-  //       // );
-  //     }
-  //   }
-  // }
-
   void _register() async {
-  final User user = (await 
-      _auth.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      )
-  ).user;
-  if (user != null) {
-    setState(() {
-      _success = true;
-      _userEmail = user.email;
+    final User user = (await _auth.createUserWithEmailAndPassword(
+      email: _userEmail,
+      password: _password,
+    ))
+        .user;
+    String _uid = user.uid;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _success = true;
+      });
+    }
+    dbref.child('user').child(_uid).set({
+      "first_name": _fname,
+      "middle_name": _mname,
+      "last_name": _lname,
+      "email": _userEmail,
+      "contact": _contact,
+      "address": _address,
+      "password": _password,
+      "confpassword": _confpassword,
+      "type": _usertype,
     });
-  } else {
-    setState(() {
-      _success = true;
-    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -116,17 +113,10 @@ String _userEmail;
                       color: Colors.grey,
                     ),
                   ),
-                //    validator: (String value){
-                //     if(value.isEmpty)
-                //     {
-                //       return 'please enter first name';
-                //     }
-                //     return null;
-                //   },
                   validator: (value) => Validators.validateUser(value),
-
+                  onSaved: (value) => _fname = value.trim(),
+                  onChanged: (value) => _fname = value.trim(),
                 ),
-                
                 SizedBox(
                   height: 20,
                 ),
@@ -146,16 +136,9 @@ String _userEmail;
                       color: Colors.grey,
                     ),
                   ),
-                  //  validator: (String value){
-                  //   if(value.isEmpty)
-                  //   {
-                  //     return 'please enter Middle name';
-                  //   }
-                  //   return null;
-                  // },
-                  validator: (value) => Validators.validateUser(value),
-
-                  
+                  // validator: (value) => Validators.validateUser(value),
+                  onSaved: (value) => _mname = value.trim(),
+                  onChanged: (value) => _mname = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
@@ -177,14 +160,8 @@ String _userEmail;
                     ),
                   ),
                   validator: (value) => Validators.validateUser(value),
-
-                  //  validator: (String value){
-                  //   if(value.isEmpty)
-                  //   {
-                  //     return 'please enter Last name';
-                  //   }
-                  //   return null;
-                  // },
+                  onSaved: (value) => _lname = value.trim(),
+                  onChanged: (value) => _lname = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
@@ -204,19 +181,21 @@ String _userEmail;
                       color: Colors.grey,
                     ),
                   ),
-                   validator: (String value){
-                    if(value.isEmpty)
-                    {
+                  validator: (String value) {
+                    if (value.isEmpty) {
                       return 'please enter your Address';
                     }
                     return null;
                   },
+                  onSaved: (value) => _address = value.trim(),
+                  onChanged: (value) => _address = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   cursorHeight: 25,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -231,21 +210,16 @@ String _userEmail;
                     ),
                   ),
                   validator: (value) => Validators.validatePhone(value),
-
-                  //  validator: (String value){
-                  //   if(value.isEmpty)
-                  //   {
-                  //     return 'please enter your phone Number';
-                  //   }
-                  //   return null;
-                  // },
+                  onSaved: (value) => _contact = value.trim(),
+                  onChanged: (value) => _contact = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
                   cursorHeight: 25,
-                  controller: _passwordController,
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -254,21 +228,14 @@ String _userEmail;
                         borderRadius: BorderRadius.circular(32.0),
                         borderSide: BorderSide(color: Colors.grey)),
                     hintText: 'Email',
-                    
                     prefixIcon: Icon(
                       Icons.mail_outline,
                       color: Colors.grey,
                     ),
                   ),
-                validator: (value) => Validators.validateEmail(value),
-
-                  // validator: (String value){
-                  //   if(value.isEmpty)
-                  //   {
-                  //     return 'enter proper email';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (value) => Validators.validateEmail(value),
+                  onSaved: (value) => _userEmail = value.trim(),
+                  onChanged: (value) => _userEmail = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
@@ -276,6 +243,7 @@ String _userEmail;
                 TextFormField(
                   obscureText: _obscureText,
                   cursorHeight: 25,
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(32.0),
@@ -299,14 +267,8 @@ String _userEmail;
                     ),
                   ),
                   validator: (value) => Validators.validatePassword(value),
-
-                  //  validator: (String value){
-                  //   if(value.isEmpty)
-                  //   {
-                  //     return 'Please enter password';
-                  //   }
-                  //   return null;
-                  // },
+                  onSaved: (value) => _password = value.trim(),
+                  onChanged: (value) => _password = value.trim(),
                 ),
                 SizedBox(
                   height: 20,
@@ -336,14 +298,38 @@ String _userEmail;
                       ),
                     ),
                   ),
-                   validator: (String value){
-                    if(value.isEmpty)
-                    {
-                      return 'Please enter confirm password ';
-                    }
-                    return null;
-                  },
+                  validator: (value) => Validators.validatePassword(value),
+                  onSaved: (value) => _confpassword = value.trim(),
+                  onChanged: (value) => _confpassword = value.trim(),
                 ),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // DropdownButton<String>(
+                //   value: _usertype,
+                //   icon: Icon(Icons.arrow_downward),
+                //   iconSize: 22,
+                //   iconEnabledColor: Colors.white,
+                //   style: TextStyle(color: Colors.black),
+                //   underline: Container(
+                //     height: 1,
+                //     color: Colors.black,
+                //   ),
+                //   onChanged: (String newValue) {
+                //     setState(() {
+                //       _usertype = newValue;
+                //     });
+                //   },
+                //   items: <String>[
+                //     'Secretary',
+                //     'Resident Owner',
+                //   ].map<DropdownMenuItem<String>>((String value) {
+                //     return DropdownMenuItem<String>(
+                //       value: value,
+                //       child: Text(value),
+                //     );
+                //   }).toList(),
+                // ),
                 SizedBox(
                   height: 20,
                 ),
@@ -356,23 +342,26 @@ String _userEmail;
                   color: Colors.grey[400],
                   // onPressed: () {},
                   onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  _register();
-                }
-              },
+                    print(_userEmail);
+                    print(_password);
+
+                    _register();
+
+                    // }
+                  },
                   child: Text(
                     'Continue',
                     style: TextStyle(fontSize: 22),
                   ),
                 ),
-                 Container(
-            alignment: Alignment.center,
-            child: Text(_success == null
-                ? ''
-                : (_success
-                    ? 'Successfully registered ' + _userEmail
-                    : 'Registration failed')),
-          )
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(_success == null
+                      ? ''
+                      : (_success
+                          ? 'Successfully registered ' + _userEmail
+                          : 'Registration failed')),
+                )
               ],
             ),
           ),
@@ -381,7 +370,7 @@ String _userEmail;
     );
   }
 
-@override
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();

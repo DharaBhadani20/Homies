@@ -4,6 +4,8 @@ import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
 import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryProfile.dart';
 import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 // ignore: must_be_immutable
 class SecretaryDrawer extends StatefulWidget {
@@ -13,10 +15,37 @@ class SecretaryDrawer extends StatefulWidget {
   _SecretaryDrawerState createState() => _SecretaryDrawerState();
 }
 
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
+
+String _fname, _lname;
+
 class _SecretaryDrawerState extends State<SecretaryDrawer> {
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("first_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _fname = snapshot.value;
+        print(_fname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("last_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _lname = snapshot.value;
+        print(_lname);
+      });
+    });
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -43,7 +72,13 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Center(child: Text('Secretory')),
+                  Center(
+                      child: Row(
+                    children: [
+                      Text(_fname),
+                      Text(_lname),
+                    ],
+                  )),
                 ],
               )),
           ListTile(

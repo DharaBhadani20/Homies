@@ -2,6 +2,8 @@
 import 'package:Homies/src/Admin_Drawer/Profile/AdminProfile.dart';
 import 'package:Homies/src/Admin_Drawer/AdminHome.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 // ignore: must_be_immutable
 class AdminDrawer extends StatefulWidget {
@@ -11,10 +13,37 @@ class AdminDrawer extends StatefulWidget {
   _AdminDrawerState createState() => _AdminDrawerState();
 }
 
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
+
+String _fname, _lname;
+
 class _AdminDrawerState extends State<AdminDrawer> {
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("first_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _fname = snapshot.value;
+        print(_fname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("last_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _lname = snapshot.value;
+        print(_lname);
+      });
+    });
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -41,7 +70,13 @@ class _AdminDrawerState extends State<AdminDrawer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Center(child: Text('Admin')),
+                  Center(
+                      child: Row(
+                    children: [
+                      Text(_fname),
+                      Text(_lname),
+                    ],
+                  )),
                 ],
               )),
           ListTile(

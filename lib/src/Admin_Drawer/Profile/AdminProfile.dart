@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class AdminProfilePage extends StatefulWidget {
   String uid;
   AdminProfilePage({Key key, @required this.uid}) : super(key: key);

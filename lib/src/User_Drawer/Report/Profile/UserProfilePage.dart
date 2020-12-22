@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+// ignore: must_be_immutable
 class UserProfilePage extends StatefulWidget {
   String uid;
   UserProfilePage({Key key, @required this.uid}) : super(key: key);

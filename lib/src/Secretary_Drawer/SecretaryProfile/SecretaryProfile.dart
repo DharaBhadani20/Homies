@@ -1,16 +1,70 @@
 import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryEditProfile.dart';
 import 'package:Homies/src/Secretary_Drawer/Secretary_Drawer.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SecretaryProfilePage extends StatefulWidget {
+  String uid;
+  SecretaryProfilePage({Key key, @required this.uid}) : super(key: key);
   @override
   _SecretaryProfilePageState createState() => _SecretaryProfilePageState();
 }
 
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
+
+String _fname, _lname, _contact, _address;
+
 class _SecretaryProfilePageState extends State<SecretaryProfilePage> {
   @override
   Widget build(BuildContext context) {
+    String _uid = widget.uid;
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("first_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _fname = snapshot.value;
+        // print(_fname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("last_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _lname = snapshot.value;
+        // print(_lname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("address")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _address = snapshot.value;
+        // print(_address);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("contact")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _contact = snapshot.value;
+        // print(_contact);
+      });
+    });
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -51,7 +105,7 @@ class _SecretaryProfilePageState extends State<SecretaryProfilePage> {
               SizedBox(
                 height: 15,
               ),
-              _address(context),
+              _addressField(context),
               SizedBox(
                 height: 15,
               ),
@@ -64,7 +118,9 @@ class _SecretaryProfilePageState extends State<SecretaryProfilePage> {
           ),
         ),
       ),
-      drawer: SecretaryDrawer(),
+      drawer: SecretaryDrawer(
+        uid: _uid,
+      ),
     );
   }
 
@@ -101,28 +157,15 @@ class _SecretaryProfilePageState extends State<SecretaryProfilePage> {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: Colors.grey),
       ),
-      child: Align(alignment: Alignment.centerLeft, child: Text("Homies")),
+      child: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: [Text(_fname), SizedBox(width: 5,),Text(_lname)],
+          )),
     );
-    // return TextField(
-    //   cursorHeight: 25,
-    //   cursorColor: Colors.grey,
-    //   decoration: InputDecoration(
-    //     enabledBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(30.0),
-    //         borderSide: BorderSide(color: Colors.grey)),
-    //     focusedBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(30.0),
-    //         borderSide: BorderSide(color: Colors.grey)),
-    //     hintText: 'Name',
-    //     prefixIcon: Icon(
-    //       Icons.person,
-    //       color: Colors.grey,
-    //     ),
-    //   ),
-    // );
   }
 
-  Widget _address(BuildContext context) {
+  Widget _addressField(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20),
       width: double.infinity,
@@ -133,7 +176,7 @@ class _SecretaryProfilePageState extends State<SecretaryProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Address"),
+        child: Text(_address),
       ),
     );
   }
@@ -149,7 +192,7 @@ class _SecretaryProfilePageState extends State<SecretaryProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Contact No."),
+        child: Text(_contact),
       ),
     );
   }

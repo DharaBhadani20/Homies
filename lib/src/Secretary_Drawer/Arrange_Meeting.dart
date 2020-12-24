@@ -1,4 +1,7 @@
+import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 // import 'package:miniproject/Drawer/Secretary_Drawer.dart';
 // import 'package:miniproject/MainScreen/Home.dart';
 // import 'package:miniproject/Secretary_Drawer/Date_Piker.dart';
@@ -10,12 +13,23 @@ class ArrangeMeeting extends StatefulWidget {
 }
 
 class _ArrangeMeetingState extends State<ArrangeMeeting> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  DatabaseReference dbref = FirebaseDatabase.instance.reference();
+  bool _success;
+  String _meetingsubject, _date, _time, _venue, _description;
+
   DateTime pickedDate;
   TimeOfDay time;
   void initState() {
     super.initState();
     pickedDate = DateTime.now();
     time = TimeOfDay.now();
+    // dbref.child('meeting').set({
+    //         "subject": null,
+    //         "Date": null,
+    //         "Time": null,
+    //         "venue": null,
+    //         "Description": null,});
   }
 
   @override
@@ -85,7 +99,9 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
-      ),
+        onSaved: (value) => _meetingsubject = value.trim(),
+        onChanged: (value) => _meetingsubject = value.trim(),
+      )
     );
   }
 
@@ -109,6 +125,8 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
+        onSaved: (value) => _venue = value.trim(),
+        onChanged: (value) => _venue = value.trim(),
       ),
     );
   }
@@ -133,6 +151,8 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
+        onSaved: (value) => _description = value.trim(),
+        onChanged: (value) => _description = value.trim(),
       ),
     );
   }
@@ -140,11 +160,13 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
   Widget date(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 20),
+
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(30),
       ),
+      
       child: ListTile(
         // contentPadding: EdgeInsets.only(top: 0, left: 15, bottom: 0),
         title: Text(
@@ -154,6 +176,7 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
         trailing: Icon(Icons.keyboard_arrow_down),
         onTap: _pickDate,
       ),
+      
     );
   }
 
@@ -204,7 +227,20 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+          dbref.child('meeting').update({
+            "subject": _meetingsubject,
+            "Date": date,
+            "Time": time,
+            "venue": _venue,
+            "Description": _description,
+          });
+          print(_venue);
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => SecretaryHomePage(uid: null)));
+        },
         child: Text(
           'Save',
         ),

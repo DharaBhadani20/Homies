@@ -4,17 +4,10 @@ import 'package:Homies/src/User_Home/Service/Service.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp());
-}
-
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
-  // const Home({Key key, this.user}) : super(key: key);
-  // final FirebaseUser user;
-  // Home({Key key, this.title, this.uid}) : super(key: key);
-  // update the constructor to include the uid
-  // final String title;
-  // final String uid; //include this
+  String uid;
+  Home({Key key, @required this.uid}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -22,6 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    String _uid = widget.uid;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -35,7 +29,9 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      drawer: UserDrawer(),
+      drawer: UserDrawer(
+        uid: _uid,
+      ),
       body: Container(
         height: double.infinity,
         margin: EdgeInsets.only(top: 20, left: 5, right: 5),

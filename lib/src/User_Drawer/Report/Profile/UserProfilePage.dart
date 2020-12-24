@@ -1,15 +1,70 @@
 import 'package:Homies/src/User_Drawer/Report/Profile/UserEditProfile.dart';
 import 'package:Homies/src/User_Drawer/User_Drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
+// ignore: must_be_immutable
 class UserProfilePage extends StatefulWidget {
+  String uid;
+  UserProfilePage({Key key, @required this.uid}) : super(key: key);
   @override
   _UserProfilePageState createState() => _UserProfilePageState();
 }
 
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
+
+String _fname, _lname, _contact, _address;
+
 class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
+    String _uid = widget.uid;
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("first_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _fname = snapshot.value;
+        print(_fname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("last_name")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _lname = snapshot.value;
+        print(_lname);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("address")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _address = snapshot.value;
+        print(_address);
+      });
+    });
+    dbref
+        .child("user")
+        .child(_uid)
+        .child("contact")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _contact = snapshot.value;
+        print(_contact);
+      });
+    });
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -50,7 +105,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               SizedBox(
                 height: 15,
               ),
-              _address(context),
+              _addressField(context),
               SizedBox(
                 height: 15,
               ),
@@ -63,7 +118,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
           ),
         ),
       ),
-      drawer: UserDrawer(),
+      drawer: UserDrawer(
+        uid: _uid,
+      ),
     );
   }
 
@@ -100,28 +157,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: Colors.grey),
       ),
-      child: Align(alignment: Alignment.centerLeft, child: Text("Homies")),
+      child: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            children: [Text(_fname), Text(_lname)],
+          )),
     );
-    // return TextField(
-    //   cursorHeight: 25,
-    //   cursorColor: Colors.grey,
-    //   decoration: InputDecoration(
-    //     enabledBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(30.0),
-    //         borderSide: BorderSide(color: Colors.grey)),
-    //     focusedBorder: OutlineInputBorder(
-    //         borderRadius: BorderRadius.circular(30.0),
-    //         borderSide: BorderSide(color: Colors.grey)),
-    //     hintText: 'Name',
-    //     prefixIcon: Icon(
-    //       Icons.person,
-    //       color: Colors.grey,
-    //     ),
-    //   ),
-    // );
   }
 
-  Widget _address(BuildContext context) {
+  Widget _addressField(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20),
       width: double.infinity,
@@ -132,7 +176,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Address"),
+        child: Text(_address),
       ),
     );
   }
@@ -148,7 +192,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       ),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text("Contact No."),
+        child: Text(_contact),
       ),
     );
   }

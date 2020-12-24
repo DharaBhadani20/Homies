@@ -31,8 +31,8 @@ class _RegistrationState extends State<Registration> {
       _password,
       _address,
       _contact,
-      _confpassword,
-      _usertype = "Resident Owner";
+      _confpassword;
+      // _usertype = "Resident Owner";
 
   // SharedPreferences pr = await SharedPreferences.getInstance();
   // uid = pr.getString('uid');
@@ -71,7 +71,7 @@ class _RegistrationState extends State<Registration> {
       "address": _address,
       "password": _password,
       "confpassword": _confpassword,
-      "type": _usertype,
+      // "type": _usertype,
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }

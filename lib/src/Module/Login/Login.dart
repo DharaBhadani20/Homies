@@ -77,11 +77,13 @@ class _LoginState extends State<Login> {
                   builder: (context) => AdminHomePage(uid: userId)));
         } else if (_email == "mittalsavaliya149@gmail.com" ||
             _email == "dharabhadani16@gmail.com") {
+              print('secretary');
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SecretaryHomePage()));
+              MaterialPageRoute(builder: (context) => SecretaryHomePage(uid: userId)));
         } else {
+          print('User');
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Home()));
+              context, MaterialPageRoute(builder: (context) => Home(uid: userId)));
         }
       } else {
         userId = await widget.auth.signUp(_email, _password);
@@ -116,7 +118,7 @@ class _LoginState extends State<Login> {
 
   void resetForm() {
     _formKey.currentState.reset();
-    _errorMessage = "";
+    _errorMessage = "Reset";
   }
 
   void toggleFormMode() {

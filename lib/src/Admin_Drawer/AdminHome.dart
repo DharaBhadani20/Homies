@@ -1,9 +1,10 @@
 import 'package:Homies/src/Admin_Drawer/Admin_Drawer.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AdminHomePage extends StatefulWidget {
   String uid;
-  AdminHomePage({Key key, @required this.uid}): super(key:key);
+  AdminHomePage({Key key, @required this.uid}) : super(key: key);
   @override
   _AdminHomePageState createState() => _AdminHomePageState();
 }
@@ -11,7 +12,7 @@ class AdminHomePage extends StatefulWidget {
 class _AdminHomePageState extends State<AdminHomePage> {
   @override
   Widget build(BuildContext context) {
-      String _uid= widget.uid;
+    String _uid = widget.uid;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,

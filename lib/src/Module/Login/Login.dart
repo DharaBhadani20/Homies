@@ -77,13 +77,15 @@ class _LoginState extends State<Login> {
                   builder: (context) => AdminHomePage(uid: userId)));
         } else if (_email == "mittalsavaliya149@gmail.com" ||
             _email == "dharabhadani16@gmail.com") {
-              print('secretary');
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SecretaryHomePage(uid: userId)));
+          print('secretary');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SecretaryHomePage(uid: userId)));
         } else {
           print('User');
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Home(uid: userId)));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => Home(uid: userId)));
         }
       } else {
         userId = await widget.auth.signUp(_email, _password);

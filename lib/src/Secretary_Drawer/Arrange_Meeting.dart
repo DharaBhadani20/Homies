@@ -2,10 +2,13 @@ import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 // import 'package:miniproject/Drawer/Secretary_Drawer.dart';
 // import 'package:miniproject/MainScreen/Home.dart';
 // import 'package:miniproject/Secretary_Drawer/Date_Piker.dart';
 // import 'Date_Piker.dart';
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 class ArrangeMeeting extends StatefulWidget {
   @override
@@ -13,8 +16,6 @@ class ArrangeMeeting extends StatefulWidget {
 }
 
 class _ArrangeMeetingState extends State<ArrangeMeeting> {
-  FirebaseAuth auth = FirebaseAuth.instance;
-  DatabaseReference dbref = FirebaseDatabase.instance.reference();
   bool _success;
   String _meetingsubject, _date, _time, _venue, _description;
 
@@ -198,14 +199,18 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
                 margin: EdgeInsets.only(top: 20),
                 child: RaisedButton(
                   onPressed: () {
+                    _date = pickedDate.toString();
+                    _time = time.toString();
                     dbref.child('meeting').set({
                       "subject": _meetingsubject,
                       "Date": _date,
-                      "Time": time,
+                      "Time": _time,
                       "venue": _venue,
                       "Description": _description,
                     });
-                    print(_venue);
+
+                    print(
+                        "meeting  $_meetingsubject : $_date : $_time : $_venue : $_description");
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(

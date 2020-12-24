@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-
 // ignore: must_be_immutable
 class SecretaryDrawer extends StatefulWidget {
   String uid;

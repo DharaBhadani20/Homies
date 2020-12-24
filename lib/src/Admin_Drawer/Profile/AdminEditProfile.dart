@@ -9,33 +9,22 @@ class AdminEditProfile extends StatefulWidget {
 }
 
 class _AdminEditProfileState extends State<AdminEditProfile> {
-
-  //  PickedFile _image;
-  // final picker = ImagePicker();
-
-  // Future getImage() async {
-  //   final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       _image = File(pickedFile.path);
-  //     } else {
-  //       print('No image selected.');
-  //     }
-  //   });
-  // }
   // File _image;
+
   // _imgFromCamera() async {
-  // PickedFile image = await picker.getImage(source: ImageSource.camera);
-  // //   File image = await picker.getImage(
-  // // source: ImageSource.camera, imageQuality: 50);
+  // PickedFile image = await ImagePicker.getImage(source: ImageSource.camera);
+//     File image = await ImagePicker.pickImage(
+  // source: ImageSource.camera, imageQuality: 50);
+
   //   setState(() {
   //     _image = image;
   //   });
   // }
+
   // _imgFromGallery() async {
-  //   PickedFile image = await picker.getImage(
+  //   File image = await ImagePicker.pickImage(
   //       source: ImageSource.gallery, imageQuality: 50);
+
   //   setState(() {
   //     _image = image;
   //   });
@@ -176,6 +165,38 @@ class _AdminEditProfileState extends State<AdminEditProfile> {
         ),
       ],
     );
+    // return Center(
+    //   child: GestureDetector(
+    //     onTap: () {
+    //       _showPicker(context);
+    //     },
+    //     child: CircleAvatar(
+    //       radius: 55,
+    //       backgroundColor: Color(0xffFDCF09),
+    //       child: _image != null
+    //           ? ClipRRect(
+    //               borderRadius: BorderRadius.circular(50),
+    //               child: Image.file(
+    //                 _image,
+    //                 width: 100,
+    //                 height: 100,
+    //                 fit: BoxFit.fitHeight,
+    //               ),
+    //             )
+    //           : Container(
+    //               decoration: BoxDecoration(
+    //                   color: Colors.grey[200],
+    //                   borderRadius: BorderRadius.circular(50)),
+    //               width: 100,
+    //               height: 100,
+    //               child: Icon(
+    //                 Icons.camera_alt,
+    //                 color: Colors.grey[800],
+    //               ),
+    //             ),
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _name(BuildContext context) {

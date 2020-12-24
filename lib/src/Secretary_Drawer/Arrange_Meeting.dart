@@ -32,6 +32,30 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
     //         "Description": null,});
   }
 
+  _pickDate() async {
+    DateTime date = await showDatePicker(
+      context: context,
+      initialDate: pickedDate,
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+    );
+    if (date != null)
+      setState(() {
+        pickedDate = date;
+      });
+  }
+
+  _pickTime() async {
+    TimeOfDay t = await showTimePicker(
+      context: context,
+      initialTime: time,
+    );
+    if (t != null)
+      setState(() {
+        time = t;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,183 +90,134 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              meetingSubject(context),
-              date(context),
-              meetingTime(context),
-              venue(context),
-              description(context),
-              saveButton(context),
+              Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: TextFormField(
+                    cursorColor: Colors.grey,
+                    // cursorHeight: 25,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'Meeting Subject',
+                      contentPadding:
+                          EdgeInsets.only(top: 18, left: 15, bottom: 18),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                    ),
+                    onSaved: (value) => _meetingsubject = value.trim(),
+                    onChanged: (value) => _meetingsubject = value.trim(),
+                  )),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: ListTile(
+                  // contentPadding: EdgeInsets.only(top: 0, left: 15, bottom: 0),
+                  title: Text(
+                    'Date:${pickedDate.day}-${pickedDate.month}-${pickedDate.year}',
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_down),
+                  onTap: _pickDate,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: ListTile(
+                  title: Text(
+                    'Time:${time.hour}:${time.minute}',
+                    style: TextStyle(color: Colors.grey[700]),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_down),
+                  onTap: _pickTime,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                child: TextFormField(
+                  cursorColor: Colors.grey,
+                  // cursorHeight: 25,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Venue',
+                    contentPadding:
+                        EdgeInsets.only(top: 18, left: 15, bottom: 18),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                  onSaved: (value) => _venue = value.trim(),
+                  onChanged: (value) => _venue = value.trim(),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                child: TextFormField(
+                  cursorColor: Colors.grey,
+                  // cursorHeight: 25,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Description',
+                    contentPadding:
+                        EdgeInsets.only(top: 18, left: 15, bottom: 18),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                  onSaved: (value) => _description = value.trim(),
+                  onChanged: (value) => _description = value.trim(),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: RaisedButton(
+                  onPressed: () {
+                    dbref.child('meeting').set({
+                      "subject": _meetingsubject,
+                      "Date": _date,
+                      "Time": time,
+                      "venue": _venue,
+                      "Description": _description,
+                    });
+                    print(_venue);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => SecretaryHomePage(uid: null)));
+                  },
+                  child: Text(
+                    'Save',
+                  ),
+                ),
+              ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget meetingSubject(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        cursorColor: Colors.grey,
-        // cursorHeight: 25,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          hintText: 'Meeting Subject',
-          contentPadding: EdgeInsets.only(top: 18, left: 15, bottom: 18),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-        ),
-        onSaved: (value) => _meetingsubject = value.trim(),
-        onChanged: (value) => _meetingsubject = value.trim(),
-      )
-    );
-  }
-
-  Widget venue(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        cursorColor: Colors.grey,
-        // cursorHeight: 25,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          hintText: 'Venue',
-          contentPadding: EdgeInsets.only(top: 18, left: 15, bottom: 18),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-        ),
-        onSaved: (value) => _venue = value.trim(),
-        onChanged: (value) => _venue = value.trim(),
-      ),
-    );
-  }
-
-  Widget description(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        cursorColor: Colors.grey,
-        // cursorHeight: 25,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          hintText: 'Description',
-          contentPadding: EdgeInsets.only(top: 18, left: 15, bottom: 18),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(30.0),
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-        ),
-        onSaved: (value) => _description = value.trim(),
-        onChanged: (value) => _description = value.trim(),
-      ),
-    );
-  }
-
-  Widget date(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      
-      child: ListTile(
-        // contentPadding: EdgeInsets.only(top: 0, left: 15, bottom: 0),
-        title: Text(
-          'Date:${pickedDate.day}-${pickedDate.month}-${pickedDate.year}',
-          style: TextStyle(color: Colors.grey[700]),
-        ),
-        trailing: Icon(Icons.keyboard_arrow_down),
-        onTap: _pickDate,
-      ),
-      
-    );
-  }
-
-  _pickDate() async {
-    DateTime date = await showDatePicker(
-      context: context,
-      initialDate: pickedDate,
-      firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
-    );
-    if (date != null)
-      setState(() {
-        pickedDate = date;
-      });
-  }
-
-  Widget meetingTime(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: ListTile(
-        title: Text(
-          'Time:${time.hour}:${time.minute}',
-          style: TextStyle(color: Colors.grey[700]),
-        ),
-        trailing: Icon(Icons.keyboard_arrow_down),
-        onTap: _pickTime,
-      ),
-    );
-  }
-
-  _pickTime() async {
-    TimeOfDay t = await showTimePicker(
-      context: context,
-      initialTime: time,
-    );
-    if (t != null)
-      setState(() {
-        time = t;
-      });
-  }
-
-  Widget saveButton(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      child: RaisedButton(
-        onPressed: () {
-          dbref.child('meeting').update({
-            "subject": _meetingsubject,
-            "Date": date,
-            "Time": time,
-            "venue": _venue,
-            "Description": _description,
-          });
-          print(_venue);
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => SecretaryHomePage(uid: null)));
-        },
-        child: Text(
-          'Save',
         ),
       ),
     );

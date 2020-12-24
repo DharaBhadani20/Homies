@@ -62,7 +62,7 @@ class _RegistrationState extends State<Registration> {
         _success = true;
       });
     }
-    dbref.child('user').child(_uid).set({
+    dbref.child('Homies').child('Secretary').set({
       "first_name": _fname,
       "middle_name": _mname,
       "last_name": _lname,
@@ -166,29 +166,58 @@ class _RegistrationState extends State<Registration> {
                 SizedBox(
                   height: 20,
                 ),
-                TextFormField(
-                  cursorHeight: 25,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(32.0),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    hintText: 'Address',
-                    prefixIcon: Icon(
-                      Icons.location_on,
-                      color: Colors.grey,
+                Row(
+                  children: [
+                    TextFormField(
+                      cursorHeight: 25,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'House No.',
+                        prefixIcon: Icon(
+                          Icons.location_on,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'please enter your house no';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) => _address = value.trim(),
+                      onChanged: (value) => _address = value.trim(),
                     ),
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'please enter your Address';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) => _address = value.trim(),
-                  onChanged: (value) => _address = value.trim(),
+
+                    TextFormField(
+                      cursorHeight: 25,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        hintText: 'Address',
+                        prefixIcon: Icon(
+                          Icons.location_on,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'please enter your Address';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) => _address = value.trim(),
+                      onChanged: (value) => _address = value.trim(),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 20,

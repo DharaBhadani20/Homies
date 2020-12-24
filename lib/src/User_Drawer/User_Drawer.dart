@@ -19,10 +19,6 @@ DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 String _fname, _lname;
 
-
-
-
-
 class _UserDrawerState extends State<UserDrawer> {
   @override
   Widget build(BuildContext context) {

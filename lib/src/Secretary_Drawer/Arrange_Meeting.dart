@@ -25,12 +25,6 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
     super.initState();
     pickedDate = DateTime.now();
     time = TimeOfDay.now();
-    // dbref.child('meeting').set({
-    //         "subject": null,
-    //         "Date": null,
-    //         "Time": null,
-    //         "venue": null,
-    //         "Description": null,});
   }
 
   _pickDate() async {

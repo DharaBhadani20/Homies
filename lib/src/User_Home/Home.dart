@@ -16,6 +16,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
+    print(_uid);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(

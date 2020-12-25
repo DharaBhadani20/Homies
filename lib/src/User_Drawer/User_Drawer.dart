@@ -1,6 +1,7 @@
 import 'package:Homies/src/Module/Login/Login.dart';
 import 'package:Homies/src/User_Drawer/Report/Add_Complaint.dart';
 import 'package:Homies/src/User_Drawer/Report/Profile/UserProfilePage.dart';
+import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
 import 'package:Homies/src/User_Home/Home.dart';
 import 'package:Homies/src/User_Drawer/GiveFeedback.dart';
 import 'package:flutter/material.dart';
@@ -142,7 +143,15 @@ class _UserDrawerState extends State<UserDrawer> {
                 Text('View Meeting Details'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MeetingDetail(),
+                  
+                )
+              );
+            },
           ),
           ListTile(
             title: Row(

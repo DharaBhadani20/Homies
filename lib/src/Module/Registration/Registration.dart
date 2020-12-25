@@ -29,6 +29,7 @@ class _RegistrationState extends State<Registration> {
       _mname,
       _lname,
       _password,
+      _houseid,
       _address,
       _contact,
       _confpassword;
@@ -68,6 +69,7 @@ class _RegistrationState extends State<Registration> {
       "last_name": _lname,
       "email": _userEmail,
       "contact": _contact,
+      "House No.": _houseid,
       "address": _address,
       "password": _password,
       "confpassword": _confpassword,
@@ -189,8 +191,8 @@ class _RegistrationState extends State<Registration> {
                         }
                         return null;
                       },
-                      onSaved: (value) => _address = value.trim(),
-                      onChanged: (value) => _address = value.trim(),
+                      onSaved: (value) => _houseid = value.trim(),
+                      onChanged: (value) => _houseid = value.trim(),
                     ),
 
                     TextFormField(
@@ -369,14 +371,12 @@ class _RegistrationState extends State<Registration> {
                     side: BorderSide(width: 1),
                   ),
                   color: Colors.grey[400],
-                  // onPressed: () {},
+             
                   onPressed: () async {
                     print(_userEmail);
                     print(_password);
 
                     _register();
-
-                    // }
                   },
                   child: Text(
                     'Continue',

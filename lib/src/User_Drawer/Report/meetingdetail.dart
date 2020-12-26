@@ -55,18 +55,88 @@ class _MeetingDetailState extends State<MeetingDetail> {
     });
 
     return Scaffold(
-        body: Container(
-      child: Center(
-        child: Column(
-          children: [
-            Text(_meetingsubject),
-            Text(_date),
-            Text(_time),
-            Text(_venue),
-            Text(_description)
-          ],
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text('Meeting Details'),
+          centerTitle: true,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios),
+          ),
         ),
-      ),
-    ));
+        body: Container(
+          child: Align(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Meeting Subject:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(_meetingsubject),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Date:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(_date),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Time:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(_time),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Venue:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(_venue),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Decription:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(_description),
+                  ],
+                ),
+                SizedBox(height: 5),
+              ],
+            ),
+          ),
+        ));
   }
 }

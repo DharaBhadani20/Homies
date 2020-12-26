@@ -89,7 +89,7 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
                   margin: EdgeInsets.only(bottom: 20),
                   child: TextFormField(
                     cursorColor: Colors.grey,
-                    // cursorHeight: 25,
+                    cursorHeight: 25,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
@@ -145,7 +145,7 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
                 margin: EdgeInsets.only(bottom: 20),
                 child: TextFormField(
                   cursorColor: Colors.grey,
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -169,7 +169,7 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
                 margin: EdgeInsets.only(bottom: 20),
                 child: TextFormField(
                   cursorColor: Colors.grey,
-                  // cursorHeight: 25,
+                  cursorHeight: 25,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,

@@ -5,6 +5,10 @@ import 'package:Homies/src/Module/Login/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
+import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
+
+
 
 // ignore: must_be_immutable
 class AdminDrawer extends StatefulWidget {
@@ -151,7 +155,33 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 Text('Complaint'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ViewComplaint(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(Icons.comment),
+                SizedBox(
+                  width: 3,
+                ),
+                Text('View Meeting'),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MeetingDetail(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: Row(

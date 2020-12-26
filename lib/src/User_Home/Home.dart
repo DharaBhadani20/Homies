@@ -1,12 +1,17 @@
 import 'package:Homies/src/User_Drawer/User_Drawer.dart';
 import 'package:Homies/src/User_Home/Maintenance/Maintenance.dart';
 import 'package:Homies/src/User_Home/Service/Service.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Homies/src/User_Home/Service/ViewNotice.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  String uid;
+  String uid ;
   Home({Key key, @required this.uid}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
@@ -15,6 +20,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+ 
+
     String _uid = widget.uid;
     print(_uid);
     return Scaffold(
@@ -125,8 +132,8 @@ class _HomeState extends State<Home> {
 Widget noticeboard(BuildContext context) {
   return InkWell(
     onTap: () {
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => NoticeBoard()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ViewNotice()));
     },
     child: SizedBox(
       width: 300,

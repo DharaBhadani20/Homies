@@ -1,47 +1,46 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class ViewComplaint extends StatefulWidget {
-  @override
-  _ViewComplaintState createState() => _ViewComplaintState();
-}
 
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
-class _ViewComplaintState extends State<ViewComplaint> {
-   String _ownername, _houseno, _complainttopic, _description, _contactno;
+class ViewNotice extends StatefulWidget {
+  @override
+  _ViewNoticeState createState() => _ViewNoticeState();
+}
+
+class _ViewNoticeState extends State<ViewNotice> {
+  String _topic , _description ,_date;
+ 
+
+  
 
   @override
   Widget build(BuildContext context) {
     dbref
-        .child("complaint")
-        .child("Owner_Name")
+        .child("Notice")
+        .child("Topic")
         .once()
         .then((DataSnapshot snapshot) {
       setState(() {
-        _ownername = snapshot.value;
-        print(_ownername);
+        _topic = snapshot.value;
+        print(_topic);
       });
     });
-
-    dbref.child("complaint").child("House_No").once().then((DataSnapshot snapshot) {
+     dbref
+        .child("Notice")
+        .child("Date")
+        .once()
+        .then((DataSnapshot snapshot) {
       setState(() {
-        _houseno = snapshot.value;
-        print(_houseno);
+        _description = snapshot.value;
+        print(_date);
       });
     });
-    dbref.child("complaint").child("Complaint_Topic").once().then((DataSnapshot snapshot) {
-      setState(() {
-        _complainttopic = snapshot.value;
-        print(_complainttopic);
-      });
-    });
-    
-    dbref
-        .child("meeting")
+     dbref
+        .child("Notice")
         .child("Description")
         .once()
         .then((DataSnapshot snapshot) {
@@ -50,18 +49,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
         print(_description);
       });
     });
-    dbref.child("complaint").child("Contact_No").once().then((DataSnapshot snapshot) {
-      setState(() {
-        _contactno = snapshot.value;
-        print(_contactno);
-      });
-    });
-
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Text('Complaint Details'),
+          title: Text('Notice'),
           centerTitle: true,
           leading: GestureDetector(
             onTap: () {
@@ -77,15 +69,15 @@ class _ViewComplaintState extends State<ViewComplaint> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+              Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Owner Name:",
+                      "Date:",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text(_ownername),
+                    Text(_date),
                   ],
                 ),
                 SizedBox(height: 5),
@@ -94,10 +86,10 @@ class _ViewComplaintState extends State<ViewComplaint> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "House No:",
+                      "Topic:",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text(_houseno),
+                    Text(_topic),
                   ],
                 ),
                 SizedBox(height: 5),
@@ -106,34 +98,10 @@ class _ViewComplaintState extends State<ViewComplaint> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Complaint Topic:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_complainttopic),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Description:",
+                      "Decription:",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(_description),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Contact No:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_contactno),
                   ],
                 ),
                 SizedBox(height: 5),
@@ -141,5 +109,6 @@ class _ViewComplaintState extends State<ViewComplaint> {
             ),
           ),
         ));
+
   }
 }

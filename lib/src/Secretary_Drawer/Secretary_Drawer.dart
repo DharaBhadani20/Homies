@@ -4,6 +4,8 @@ import 'package:Homies/src/Secretary_Drawer/Arrange_Meeting.dart';
 import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
 import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryProfile.dart';
 import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
+import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
+import 'package:Homies/src/Secretary_Drawer/ViewFeedback.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -156,7 +158,14 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('View Complaint'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ViewComplaint(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: Row(
@@ -199,7 +208,9 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('View Meeting Details'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+               
+            },
           ),
           ListTile(
             title: Row(
@@ -226,7 +237,14 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('View Feedback'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+               Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FeedbackDetail(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: Row(

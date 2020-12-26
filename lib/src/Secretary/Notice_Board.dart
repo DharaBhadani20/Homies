@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 class NoticeBoard extends StatefulWidget {
   @override
@@ -7,7 +12,7 @@ class NoticeBoard extends StatefulWidget {
 
 class _NoticeBoardState extends State<NoticeBoard> {
   DateTime pickedDate;
-
+String _topic , _description , _date;
   void initState() {
     super.initState();
     pickedDate = DateTime.now();
@@ -66,7 +71,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
       margin: EdgeInsets.only(bottom: 20),
       child: TextFormField(
         cursorColor: Colors.grey,
-        // cursorHeight: 25,
+        cursorHeight: 25,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -81,6 +86,8 @@ class _NoticeBoardState extends State<NoticeBoard> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
+        onSaved: (value) => _topic = value.trim(),
+              onChanged: (value) => _topic = value.trim(),
       ),
     );
   }
@@ -90,7 +97,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
       margin: EdgeInsets.only(bottom: 20),
       child: TextFormField(
         cursorColor: Colors.grey,
-        // cursorHeight: 25,
+        cursorHeight: 25,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,
@@ -105,6 +112,8 @@ class _NoticeBoardState extends State<NoticeBoard> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
+        onSaved: (value) => _description = value.trim(),
+              onChanged: (value) => _description = value.trim(),
       ),
     );
   }
@@ -146,7 +155,17 @@ class _NoticeBoardState extends State<NoticeBoard> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+           _date = pickedDate.toString();
+                    
+                    dbref.child('Notice').set({
+                    
+                      "Date": _date,
+                      "Topic": _topic,
+                      "Description": _description,
+                    });
+                    print("Notice $_topic : $_date : $_description");
+        },
         child: Text(
           'Upload',
         ),

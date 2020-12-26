@@ -1,5 +1,10 @@
 import 'package:Homies/src/User_Home/Maintenance/Make_Payment.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 class GiveFeedback extends StatefulWidget {
   @override
@@ -7,6 +12,7 @@ class GiveFeedback extends StatefulWidget {
 }
 
 class _GiveFeedbackState extends State<GiveFeedback> {
+  String _feedbacktopic, _description;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +40,7 @@ class _GiveFeedbackState extends State<GiveFeedback> {
             ),
             TextFormField(
               cursorColor: Colors.grey,
-              // cursorHeight: 25,
+              cursorHeight: 25,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 enabledBorder: OutlineInputBorder(
@@ -45,13 +51,15 @@ class _GiveFeedbackState extends State<GiveFeedback> {
                     borderSide: BorderSide(color: Colors.grey)),
                 hintText: "Feedback Topic",
               ),
+              onSaved: (value) => _feedbacktopic = value.trim(),
+              onChanged: (value) => _feedbacktopic = value.trim(),
             ),
             SizedBox(
               height: 20,
             ),
             TextFormField(
               cursorColor: Colors.grey,
-              // cursorHeight: 25,
+              cursorHeight: 25,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 enabledBorder: OutlineInputBorder(
@@ -62,6 +70,8 @@ class _GiveFeedbackState extends State<GiveFeedback> {
                     borderSide: BorderSide(color: Colors.grey)),
                 hintText: "Description",
               ),
+              onSaved: (value) => _description = value.trim(),
+              onChanged: (value) => _description = value.trim(),
             ),
             SizedBox(
               height: 50,
@@ -74,12 +84,11 @@ class _GiveFeedbackState extends State<GiveFeedback> {
               ),
               color: Colors.grey[400],
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MakePayment(),
-                  ),
-                );
+                dbref.child('GiveFeedback').set({
+                  "FeedbackTopic": _feedbacktopic,
+                  "Description": _description,
+                });
+                print("feedback $_feedbacktopic :  $_description ");
               },
               child: Text(
                 "Save",

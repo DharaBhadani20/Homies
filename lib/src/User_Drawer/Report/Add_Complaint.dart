@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
+
 class AddComplaint extends StatefulWidget {
   @override
   _AddComplaintState createState() => _AddComplaintState();
@@ -195,17 +196,26 @@ class _AddComplaintState extends State<AddComplaint> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: RaisedButton(
+        padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+          side: BorderSide(width: 1),
+        ),
         onPressed: () {
           dbref.child('complaint').set({
-                      "Owner_Name": _ownername,
-                      "House_No": _houseno,
-                      "Complaint_Topic": _complainttopic,
-                      "Description": _description,
-                      "Contact_No": _contactno,
-                    });
-                    print("complaint $_ownername : $_houseno : $_complainttopic : $_description : $_contactno");
+            "Owner_Name": _ownername,
+            "House_No": _houseno,
+            "Complaint_Topic": _complainttopic,
+            "Description": _description,
+            "Contact_No": _contactno,
+          });
+          print(
+              "complaint $_ownername : $_houseno : $_complainttopic : $_description : $_contactno");
         },
-        child: Text('Save'),
+        child: Text(
+          'Save',
+          style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }

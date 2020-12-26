@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
@@ -12,34 +11,23 @@ class ViewNotice extends StatefulWidget {
 }
 
 class _ViewNoticeState extends State<ViewNotice> {
-  String _topic , _description ,_date;
- 
-
-  
+  String _topic, _description, _date;
 
   @override
   Widget build(BuildContext context) {
-    dbref
-        .child("Notice")
-        .child("Topic")
-        .once()
-        .then((DataSnapshot snapshot) {
+    dbref.child("Notice").child("Topic").once().then((DataSnapshot snapshot) {
       setState(() {
         _topic = snapshot.value;
         print(_topic);
       });
     });
-     dbref
-        .child("Notice")
-        .child("Date")
-        .once()
-        .then((DataSnapshot snapshot) {
+    dbref.child("Notice").child("Date").once().then((DataSnapshot snapshot) {
       setState(() {
         _description = snapshot.value;
         print(_date);
       });
     });
-     dbref
+    dbref
         .child("Notice")
         .child("Description")
         .once()
@@ -63,52 +51,65 @@ class _ViewNoticeState extends State<ViewNotice> {
           ),
         ),
         body: Container(
-          child: Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Date:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_date),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Topic:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_topic),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Decription:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_description),
-                  ],
-                ),
-                SizedBox(height: 5),
-              ],
+          height: MediaQuery.of(context).size.height,
+          margin: EdgeInsets.only(top: 20, left: 5, right: 5),
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            boxShadow: [
+              BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+            ],
+          ),
+          child: Container(
+            child: Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Date:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(_date),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Topic:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(_topic),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Decription:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(_description),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                ],
+              ),
             ),
           ),
         ));
-
   }
 }

@@ -160,7 +160,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
       child: Align(
           alignment: Alignment.centerLeft,
           child: Row(
-            children: [Text(_fname), Text(_lname)],
+            children: [
+              Text(_fname),
+              SizedBox(
+                width: 5,
+              ),
+              Text(_lname)
+            ],
           )),
     );
   }

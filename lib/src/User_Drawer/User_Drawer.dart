@@ -3,7 +3,7 @@ import 'package:Homies/src/User_Drawer/Report/Add_Complaint.dart';
 import 'package:Homies/src/User_Drawer/Report/Profile/UserProfilePage.dart';
 import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
 import 'package:Homies/src/User_Home/Home.dart';
-import 'package:Homies/src/User_Drawer/GiveFeedback.dart';
+import 'package:Homies/src/User_Drawer/Report/GiveFeedback.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -15,6 +15,7 @@ class UserDrawer extends StatefulWidget {
   @override
   _UserDrawerState createState() => _UserDrawerState();
 }
+
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
@@ -24,7 +25,7 @@ class _UserDrawerState extends State<UserDrawer> {
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
-     dbref
+    dbref
         .child("user")
         .child(_uid)
         .child("first_name")
@@ -72,13 +73,15 @@ class _UserDrawerState extends State<UserDrawer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Center(child: Row(
+                  Row(
                     children: [
                       Text(_fname),
-                      SizedBox(width:5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(_lname),
                     ],
-                  )),
+                  ),
                 ],
               )),
           ListTile(
@@ -145,12 +148,10 @@ class _UserDrawerState extends State<UserDrawer> {
             ),
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MeetingDetail(),
-                  
-                )
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MeetingDetail(),
+                  ));
             },
           ),
           ListTile(

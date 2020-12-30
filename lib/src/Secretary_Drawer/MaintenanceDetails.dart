@@ -1,5 +1,12 @@
 import 'package:Homies/src/User_Home/Maintenance/Make_Payment.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
+
 
 class MaintenanceDetails extends StatefulWidget {
   @override
@@ -7,6 +14,7 @@ class MaintenanceDetails extends StatefulWidget {
 }
 
 class _MaintenanceDetailsState extends State<MaintenanceDetails> {
+  String _payment;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +42,7 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
             ),
             TextFormField(
               cursorColor: Colors.grey,
-              // cursorHeight: 25,
+              cursorHeight: 25,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 enabledBorder: OutlineInputBorder(
@@ -57,12 +65,11 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
               ),
               color: Colors.grey[400],
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MakePayment(),
-                  ),
-                );
+                 dbref.child('payment').set({
+                  "Payment": _payment,
+                 
+                });
+                print("payment $_payment");
               },
               child: Text(
                 "SAVE",

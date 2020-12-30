@@ -35,7 +35,7 @@ class _ViewNoticeState extends State<ViewNotice> {
         .once()
         .then((DataSnapshot snapshot) {
       setState(() {
-        _description = snapshot.value;
+        _date = snapshot.value;
         print(_date);
       });
     });

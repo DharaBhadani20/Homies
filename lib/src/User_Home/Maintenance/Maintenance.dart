@@ -1,5 +1,10 @@
 import 'package:Homies/src/User_Home/Maintenance/Make_Payment.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 class MaintenanceScreen extends StatefulWidget {
   @override
@@ -7,8 +12,19 @@ class MaintenanceScreen extends StatefulWidget {
 }
 
 class _MaintenanceScreenState extends State<MaintenanceScreen> {
+  String _payment;
   @override
   Widget build(BuildContext context) {
+    dbref
+                  .child("payment")
+                  .child("Payment")
+                  .once()
+                  .then((DataSnapshot snapshot) {
+                setState(() {
+                  _payment = snapshot.value;
+                  print(_payment);
+                });
+              });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -33,8 +49,10 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
               height: 50,
             ),
             TextFormField(
+              
+              
               cursorColor: Colors.grey,
-              // cursorHeight: 25,
+              cursorHeight: 25,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 enabledBorder: OutlineInputBorder(
@@ -43,7 +61,8 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(color: Colors.grey)),
-                hintText: "2000/-",
+                // hintText: "2000/-",
+                
               ),
             ),
             SizedBox(

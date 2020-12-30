@@ -55,7 +55,7 @@ class _MeetingDetailState extends State<MeetingDetail> {
     });
 
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Text('Meeting Details'),
@@ -68,73 +68,110 @@ class _MeetingDetailState extends State<MeetingDetail> {
           ),
         ),
         body: Container(
-          child: Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Meeting Subject:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_meetingsubject),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Date:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_date),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Time:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_time),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Venue:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_venue),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Decription:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_description),
-                  ],
-                ),
-                SizedBox(height: 5),
-              ],
+          height: MediaQuery.of(context).size.height,
+          margin: EdgeInsets.only(top: 20),
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            boxShadow: [
+              BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+            ],
+          ),
+          child: Container(
+            child: Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Meeting Subject:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        _meetingsubject,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // SizedBox(
+                      //   width: 150,
+                      // ),
+                      Text(
+                        "Date:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        _date,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Time:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        _time,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Venue:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        _venue,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Decription:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        _description,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                ],
+              ),
             ),
           ),
         ));

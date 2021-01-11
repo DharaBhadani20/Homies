@@ -68,18 +68,18 @@ class _MeetingDetailState extends State<MeetingDetail> {
           ),
         ),
         body: Container(
-          // height: MediaQuery.of(context).size.height,
-          // margin: EdgeInsets.only(top: 20),
-          // decoration: BoxDecoration(
-          //   color: Colors.grey[400],
-          //   borderRadius: BorderRadius.only(
-          //     topLeft: Radius.circular(30),
-          //     topRight: Radius.circular(30),
-          //   ),
-          //   boxShadow: [
-          //     BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
-          //   ],
-          // ),
+          height: MediaQuery.of(context).size.height,
+          margin: EdgeInsets.only(top: 20),
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            boxShadow: [
+              BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+            ],
+          ),
           child: Container(
             child: Align(
               alignment: Alignment.center,

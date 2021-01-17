@@ -79,7 +79,10 @@ class _SecretaryEditProfileState extends State<SecretaryEditProfile> {
           ),
           child: CircleAvatar(
             backgroundColor: Colors.black54,
-            child: IconButton(icon: Icon(Icons.edit), onPressed: () {}),
+            child: IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {},
+            ),
           ),
         ),
       ],

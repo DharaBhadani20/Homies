@@ -6,6 +6,7 @@ import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryProfile.da
 import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
 import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
 import 'package:Homies/src/Secretary_Drawer/ViewFeedback.dart';
+import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -17,15 +18,17 @@ class SecretaryDrawer extends StatefulWidget {
   @override
   _SecretaryDrawerState createState() => _SecretaryDrawerState();
 }
+
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 String _fname, _lname;
+
 class _SecretaryDrawerState extends State<SecretaryDrawer> {
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
-     dbref
+    dbref
         .child("user")
         .child(_uid)
         .child("first_name")
@@ -73,10 +76,13 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Center(child: Row(
+                  Center(
+                      child: Row(
                     children: [
                       Text(_fname),
-                      SizedBox(width:5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(_lname),
                     ],
                   )),
@@ -209,7 +215,12 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
-               
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MeetingDetail(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -238,7 +249,7 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
-               Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => FeedbackDetail(),
@@ -279,7 +290,7 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               );
             },
           ),
-           ListTile(
+          ListTile(
             title: Row(
               children: <Widget>[
                 Icon(Icons.logout),
@@ -290,7 +301,8 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
             },
           ),
         ],

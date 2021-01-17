@@ -11,7 +11,7 @@ DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  String uid ;
+  String uid;
   Home({Key key, @required this.uid}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
@@ -20,8 +20,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
- 
-
     String _uid = widget.uid;
     print(_uid);
     return Scaffold(

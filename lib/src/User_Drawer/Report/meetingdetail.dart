@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:wave/wave.dart';
+import 'package:wave/config.dart';
 
 class MeetingDetail extends StatefulWidget {
   @override
@@ -70,8 +72,9 @@ class _MeetingDetailState extends State<MeetingDetail> {
         body: Container(
           height: MediaQuery.of(context).size.height,
           margin: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
-            color: Colors.grey[400],
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
@@ -80,99 +83,123 @@ class _MeetingDetailState extends State<MeetingDetail> {
               BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
             ],
           ),
-          child: Container(
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Meeting Subject:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        _meetingsubject,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 10,
                   ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // SizedBox(
-                      //   width: 150,
-                      // ),
-                      Text(
-                        "Date:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        _date,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Time:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        _time,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Venue:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        _venue,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Decription:",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Text(
-                        _description,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 5),
                 ],
               ),
-            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Meeting Subject:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    _meetingsubject,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Date:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    _date,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Time:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    _time,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Venue:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Text(
+                    _venue,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Decription:",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  Expanded(
+                    child: Text(
+                      _description,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 350,
+              ),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        // height: 234,
+                        width: MediaQuery.of(context).size.width / 1.05,
+                        child: WaveWidget(
+                          config: CustomConfig(
+                            colors: [
+                              Colors.black.withOpacity(0.1),
+                              Colors.grey.withOpacity(0.2),
+                              Colors.black.withOpacity(0.1),
+                            ],
+                            durations: [4000, 5000, 7000],
+                            heightPercentages: [0.01, 0.05, 0.03],
+                            blur: MaskFilter.blur(BlurStyle.solid, 5),
+                          ),
+                          waveAmplitude: 40.00,
+                          waveFrequency: 3,
+                          backgroundColor: Colors.grey[100],
+                          size: Size(double.maxFinite, double.minPositive),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
           ),
         ));
   }

@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:wave/wave.dart';
+import 'package:wave/config.dart';
 
 class ViewComplaint extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 class _ViewComplaintState extends State<ViewComplaint> {
-   String _ownername, _houseno, _complainttopic, _description, _contactno;
+  String _ownername, _houseno, _complainttopic, _description, _contactno;
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +28,27 @@ class _ViewComplaintState extends State<ViewComplaint> {
       });
     });
 
-    dbref.child("complaint").child("House_No").once().then((DataSnapshot snapshot) {
+    dbref
+        .child("complaint")
+        .child("House_No")
+        .once()
+        .then((DataSnapshot snapshot) {
       setState(() {
         _houseno = snapshot.value;
         print(_houseno);
       });
     });
-    dbref.child("complaint").child("Complaint_Topic").once().then((DataSnapshot snapshot) {
+    dbref
+        .child("complaint")
+        .child("Complaint_Topic")
+        .once()
+        .then((DataSnapshot snapshot) {
       setState(() {
         _complainttopic = snapshot.value;
         print(_complainttopic);
       });
     });
-    
+
     dbref
         .child("meeting")
         .child("Description")
@@ -50,7 +59,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
         print(_description);
       });
     });
-    dbref.child("complaint").child("Contact_No").once().then((DataSnapshot snapshot) {
+    dbref
+        .child("complaint")
+        .child("Contact_No")
+        .once()
+        .then((DataSnapshot snapshot) {
       setState(() {
         _contactno = snapshot.value;
         print(_contactno);
@@ -58,88 +71,151 @@ class _ViewComplaintState extends State<ViewComplaint> {
     });
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text('Complaint Details'),
-          centerTitle: true,
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back_ios),
-          ),
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('Complaint Details'),
+        centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back_ios),
         ),
-        body: Container(
-          child: Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+      ),
+      body: Container(
+        height: double.infinity,
+        margin: EdgeInsets.only(top: 20),
+        padding: EdgeInsets.only(left: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
+          ),
+          boxShadow: [
+            BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Owner Name:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_ownername),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "House No:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_houseno),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Complaint Topic:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_complainttopic),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Description:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_description),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Contact No:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(_contactno),
-                  ],
-                ),
-                SizedBox(height: 5),
               ],
             ),
-          ),
-        ));
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Owner Name:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  _ownername,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "House No:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  _houseno,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Complaint Topic:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  _complainttopic,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Description:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Expanded(
+                  child: Text(
+                    _description,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Contact No:",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  _contactno,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 400,
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 208,
+                      width: MediaQuery.of(context).size.width / 1.05,
+                      child: WaveWidget(
+                        config: CustomConfig(
+                          colors: [
+                            Colors.black.withOpacity(0.1),
+                            Colors.grey.withOpacity(0.2),
+                            Colors.black.withOpacity(0.1),
+                          ],
+                          durations: [4000, 5000, 7000],
+                          heightPercentages: [0.01, 0.05, 0.03],
+                          blur: MaskFilter.blur(BlurStyle.solid, 5),
+                        ),
+                        waveAmplitude: 40.00,
+                        waveFrequency: 3,
+                        backgroundColor: Colors.grey[100],
+                        size: Size(double.maxFinite, double.minPositive),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

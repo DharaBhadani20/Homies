@@ -16,15 +16,15 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
   @override
   Widget build(BuildContext context) {
     dbref
-                  .child("payment")
-                  .child("Payment")
-                  .once()
-                  .then((DataSnapshot snapshot) {
-                setState(() {
-                  _payment = snapshot.value;
-                  print(_payment);
-                });
-              });
+        .child("payment")
+        .child("Payment")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _payment = snapshot.value;
+        print(_payment);
+      });
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -49,8 +49,6 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
               height: 50,
             ),
             TextFormField(
-              
-              
               cursorColor: Colors.grey,
               cursorHeight: 25,
               decoration: InputDecoration(
@@ -62,31 +60,30 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(color: Colors.grey)),
                 // hintText: "2000/-",
-                
               ),
             ),
             SizedBox(
               height: 50,
             ),
-            FlatButton(
-              padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-                side: BorderSide(width: 1),
-              ),
-              color: Colors.grey[400],
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MakePayment(),
-                  ),
-                );
-              },
-              child: Text(
-                "MAKE A PAYMENT",
-              ),
-            ),
+            // FlatButton(
+            //   padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(30),
+            //     side: BorderSide(width: 1),
+            //   ),
+            //   color: Colors.grey[400],
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => MakePayment(),
+            //       ),
+            //     );
+            //   },
+            //   child: Text(
+            //     "MAKE A PAYMENT",
+            //   ),
+            // ),
           ],
         ),
       ),

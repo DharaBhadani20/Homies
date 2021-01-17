@@ -7,9 +7,6 @@ import 'package:Homies/src/utils/network_dio/validators.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
-void main() {
-  runApp(MaterialApp());
-}
 
 class Registration extends StatefulWidget {
   final String title = 'Registration';
@@ -33,7 +30,7 @@ class _RegistrationState extends State<Registration> {
       _address,
       _contact,
       _confpassword;
-      // _usertype = "Resident Owner";
+  // _usertype = "Resident Owner";
 
   // SharedPreferences pr = await SharedPreferences.getInstance();
   // uid = pr.getString('uid');
@@ -63,7 +60,7 @@ class _RegistrationState extends State<Registration> {
         _success = true;
       });
     }
-    dbref.child('Homies').child('Secretary').set({
+    dbref.child("user").child(_houseid).set({
       "first_name": _fname,
       "middle_name": _mname,
       "last_name": _lname,
@@ -197,7 +194,7 @@ class _RegistrationState extends State<Registration> {
                         onChanged: (value) => _houseid = value.trim(),
                       ),
                     ),
-                    SizedBox(height:10),
+                    SizedBox(height: 10),
                     SizedBox(
                       width: 250,
                       child: TextFormField(
@@ -377,7 +374,6 @@ class _RegistrationState extends State<Registration> {
                     side: BorderSide(width: 1),
                   ),
                   color: Colors.grey[400],
-             
                   onPressed: () async {
                     print(_userEmail);
                     print(_password);

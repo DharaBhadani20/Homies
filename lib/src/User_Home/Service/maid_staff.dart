@@ -81,7 +81,7 @@ class _MaidDetailsState extends State<MaidDetails> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Meeting Details'),
+        title: Text('Maid Details'),
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {

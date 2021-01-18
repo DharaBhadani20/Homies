@@ -51,7 +51,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
     });
 
     dbref
-        .child("meeting")
+        .child("complaint")
         .child("Description")
         .once()
         .then((DataSnapshot snapshot) {
@@ -87,7 +87,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
       body: Container(
         height: double.infinity,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        padding: EdgeInsets.only(left: 10),
         margin: EdgeInsets.only(top: 20, left: 5, right: 5),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -113,8 +113,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Owner Name:",
+                  "Owner Name :",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Text(
                   _ownername,
@@ -128,8 +131,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "House No:",
+                  "House No :",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Text(
                   _houseno,
@@ -143,8 +149,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Complaint Topic:",
+                  "Complaint Topic :",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Text(
                   _complainttopic,
@@ -158,8 +167,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Description:",
+                  "Description :",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Expanded(
                   child: Text(
@@ -175,8 +187,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Contact No:",
+                  "Contact No :",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Text(
                   _contactno,

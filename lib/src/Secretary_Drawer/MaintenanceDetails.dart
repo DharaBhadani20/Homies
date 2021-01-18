@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
-
 
 class MaintenanceDetails extends StatefulWidget {
   @override
@@ -18,6 +16,7 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text("Maintenance Details"),
@@ -30,7 +29,20 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+        height: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        margin: EdgeInsets.only(top: 20, left: 5, right: 5),
+        decoration: BoxDecoration(
+          color: Colors.grey[400],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+          ],
+        ),
         child: Column(
           children: <Widget>[
             Text(
@@ -40,22 +52,29 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
             SizedBox(
               height: 50,
             ),
-            TextFormField(
-              cursorColor: Colors.grey,
-              cursorHeight: 25,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey)),
-                hintText: "Rs...../-",
-              ),
-              onSaved: (value) => _payment = value.trim(),
-        onChanged: (value) => _payment = value.trim(),
-            ),
+            Container(
+                margin: EdgeInsets.only(bottom: 20),
+                child: TextFormField(
+                  cursorColor: Colors.grey,
+                  cursorHeight: 25,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Rs.....',
+                    contentPadding:
+                        EdgeInsets.only(top: 18, left: 15, bottom: 18),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                  onSaved: (value) => _payment = value.trim(),
+                  onChanged: (value) => _payment = value.trim(),
+                )),
             SizedBox(
               height: 50,
             ),
@@ -65,16 +84,13 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
                 borderRadius: BorderRadius.circular(30),
                 side: BorderSide(width: 1),
               ),
-              color: Colors.grey[400],
+              color: Colors.grey[300],
               onPressed: () {
-                
-                 dbref.child('payment').set({
+                dbref.child('payment').set({
                   "Payment": _payment,
-                 
                 });
                 print("payment $_payment");
                 Navigator.pop(context);
-                
               },
               child: Text(
                 "SAVE",

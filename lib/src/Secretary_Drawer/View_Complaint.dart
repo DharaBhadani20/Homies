@@ -84,15 +84,8 @@ class _ViewComplaintState extends State<ViewComplaint> {
           child: Icon(Icons.arrow_back_ios),
         ),
       ),
-<<<<<<< Updated upstream
-  
-
-        body: Container(
-          height: double.infinity,
-=======
       body: Container(
         height: double.infinity,
->>>>>>> Stashed changes
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         margin: EdgeInsets.only(top: 20, left: 5, right: 5),
         decoration: BoxDecoration(

@@ -7,6 +7,7 @@ import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
 import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
 import 'package:Homies/src/Secretary_Drawer/ViewFeedback.dart';
 import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
+import 'package:Homies/src/Secretary_Drawer/add_watchman.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -270,14 +271,16 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.people),
+                Icon(Icons.add),
                 SizedBox(
                   width: 5,
                 ),
-                Text('User'),
+                Text('Add Watchman details'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>AddWatchman(),),);
+            },
           ),
           ListTile(
             title: Row(

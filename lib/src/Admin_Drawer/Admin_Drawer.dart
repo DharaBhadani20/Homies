@@ -161,7 +161,9 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 Text('Maintenance'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              
+            },
           ),
           ListTile(
             title: Row(
@@ -211,20 +213,22 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 Text('Service'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              
+            },
           ),
-          ListTile(
-            title: Row(
-              children: <Widget>[
-                Icon(Icons.person_outline),
-                SizedBox(
-                  width: 3,
-                ),
-                Text('User'),
-              ],
-            ),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: <Widget>[
+          //       Icon(Icons.person_outline),
+          //       SizedBox(
+          //         width: 3,
+          //       ),
+          //       Text('User'),
+          //     ],
+          //   ),
+          //   onTap: () {},
+          // ),
           ListTile(
             title: Row(
               children: <Widget>[

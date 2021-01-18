@@ -172,6 +172,7 @@ class _AddComplaintState extends State<AddComplaint> {
       child: TextFormField(
         cursorColor: Colors.grey,
         cursorHeight: 25,
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
           fillColor: Colors.white,
           filled: true,

@@ -113,7 +113,8 @@ class _PhoneState extends State<Phone> {
             ),
             TextFormField(
               controller: _phoneNumberController,
-              // cursorHeight: 25,
+              cursorHeight: 25,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),

@@ -206,25 +206,25 @@ class _AdminDrawerState extends State<AdminDrawer> {
               );
             },
           ),
-          ListTile(
-            title: Row(
-              children: <Widget>[
-                Icon(Icons.room_service),
-                SizedBox(
-                  width: 3,
-                ),
-                Text('Service'),
-              ],
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MainServiceScreen(),
-                ),
-              );
-            },
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: <Widget>[
+          //       Icon(Icons.room_service),
+          //       SizedBox(
+          //         width: 3,
+          //       ),
+          //       Text('Service'),
+          //     ],
+          //   ),
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => MainServiceScreen(),
+          //       ),
+          //     );
+          //   },
+          // ),
           // ListTile(
           //   title: Row(
           //     children: <Widget>[
@@ -264,8 +264,13 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 Text('LogOut'),
               ],
             ),
-            onTap: () async {
-              await widget.bauth.signOut();
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Login(),
+                ),
+              );
             },
           ),
         ],

@@ -18,7 +18,7 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back),
+          child: Icon(Icons.arrow_back_ios),
         ),
       ),
       body: Container(

@@ -3,6 +3,7 @@ import 'package:Homies/src/Secretary/Notice_Board.dart';
 import 'package:Homies/src/Secretary_Drawer/Arrange_Meeting.dart';
 import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
 import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryProfile.dart';
+import 'package:Homies/src/Secretary_Drawer/secretaryservice.dart';
 import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
 import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
 import 'package:Homies/src/Secretary_Drawer/ViewFeedback.dart';
@@ -194,7 +195,14 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('Service'),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SecretaryService(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: Row(
@@ -268,20 +276,20 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               );
             },
           ),
-          ListTile(
-            title: Row(
-              children: <Widget>[
-                Icon(Icons.add),
-                SizedBox(
-                  width: 5,
-                ),
-                Text('Add Watchman details'),
-              ],
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder:(context)=>AddWatchman(),),);
-            },
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: <Widget>[
+          //       Icon(Icons.add),
+          //       SizedBox(
+          //         width: 5,
+          //       ),
+          //       Text('Add Watchman details'),
+          //     ],
+          //   ),
+          //   onTap: () {
+          //     Navigator.push(context, MaterialPageRoute(builder:(context)=>AddWatchman(),),);
+          //   },
+          // ),
           ListTile(
             title: Row(
               children: <Widget>[

@@ -15,8 +15,8 @@ import 'package:Homies/src/authentication.dart';
 // ignore: must_be_immutable
 class SecretaryDrawer extends StatefulWidget {
   String uid;
-   final BaseAuth bauth;
-  SecretaryDrawer({Key key, @required this.uid,this.bauth}) : super(key: key);
+  final BaseAuth bauth;
+  SecretaryDrawer({Key key, @required this.uid, this.bauth}) : super(key: key);
   @override
   _SecretaryDrawerState createState() => _SecretaryDrawerState();
 }
@@ -30,7 +30,6 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
   signOut() async {
     try {
       await widget.bauth.signOut();
-     
     } catch (e) {
       print(e);
     }
@@ -225,8 +224,6 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('View Meeting Details'),
               ],
             ),
-
-
             onTap: () {
               Navigator.push(
                 context,
@@ -235,7 +232,6 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 ),
               );
             },
-
           ),
           ListTile(
             title: Row(
@@ -315,19 +311,16 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
-
               signOut();
-                 Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Login()),
-          (Route<dynamic> route) => false);
-               print("Logout");
-          //      await widget.bauth.signOut();
-            
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                  (Route<dynamic> route) => false);
+              print("Logout");
+              //      await widget.bauth.signOut();
 
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Login()));
-
             },
           ),
         ],

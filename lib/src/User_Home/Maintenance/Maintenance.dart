@@ -38,14 +38,16 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
         ),
       ),
       body: Container(
-        height: double.infinity,
-        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-        margin: EdgeInsets.only(top: 20, left: 5, right: 5),
+        height: MediaQuery.of(context).size.height,
+        margin: EdgeInsets.only(
+          top: 20,
+        ),
+        padding: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
-          color: Colors.grey[400],
+          color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
           ),
           boxShadow: [
             BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
@@ -60,16 +62,20 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
             SizedBox(
               height: 50,
             ),
-            Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color:Colors.black),
-                  color: Colors.grey[400],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Text(_payment)),
+            // TextFormField(
+            //   cursorColor: Colors.grey,
+            //   cursorHeight: 25,
+            //   decoration: InputDecoration(
+            //     contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide(color: Colors.grey)),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide(color: Colors.grey)),
+            //     // hintText: "2000/-",
+            //   ),
+            // ),
             SizedBox(
               height: 50,
             ),

@@ -11,7 +11,7 @@ class AddComplaint extends StatefulWidget {
 }
 
 class _AddComplaintState extends State<AddComplaint> {
-  String _ownername, _houseno, _complainttopic, _description, _contactno;
+  String _ownername, _houseno, _complainttopic, _comdescription, _contactno;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,8 +160,8 @@ class _AddComplaintState extends State<AddComplaint> {
             borderSide: BorderSide(color: Colors.grey),
           ),
         ),
-        onSaved: (value) => _description = value.trim(),
-        onChanged: (value) => _description = value.trim(),
+        onSaved: (value) => _comdescription = value.trim(),
+        onChanged: (value) => _comdescription = value.trim(),
       ),
     );
   }
@@ -206,12 +206,12 @@ class _AddComplaintState extends State<AddComplaint> {
             "Owner_Name": _ownername,
             "House_No": _houseno,
             "Complaint_Topic": _complainttopic,
-            "Description": _description,
+            "Description": _comdescription,
             "Contact_No": _contactno,
           });
           // Navigator.pop(context);
           print(
-              "complaint $_ownername : $_houseno : $_complainttopic : $_description : $_contactno");
+              "complaint $_ownername : $_houseno : $_complainttopic : $_comdescription : $_contactno");
         },
         child: Text(
           'Save',

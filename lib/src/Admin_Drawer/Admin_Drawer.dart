@@ -2,6 +2,8 @@
 import 'package:Homies/src/Admin_Drawer/Profile/AdminProfile.dart';
 import 'package:Homies/src/Admin_Drawer/AdminHome.dart';
 import 'package:Homies/src/Module/Login/Login.dart';
+import 'package:Homies/src/User_Home/Maintenance/Maintenance.dart';
+import 'package:Homies/src/User_Home/Service/Service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -9,16 +11,14 @@ import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
 import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
 import 'package:Homies/src/authentication.dart';
 
-
 // ignore: must_be_immutable
 class AdminDrawer extends StatefulWidget {
   String uid;
- final BaseAuth bauth;
-  AdminDrawer({Key key,this.bauth, @required this.uid}) : super(key: key);
+  final BaseAuth bauth;
+  AdminDrawer({Key key, this.bauth, @required this.uid}) : super(key: key);
   @override
   _AdminDrawerState createState() => _AdminDrawerState();
 }
-  
 
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
@@ -162,7 +162,10 @@ class _AdminDrawerState extends State<AdminDrawer> {
               ],
             ),
             onTap: () {
-              
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MaintenanceScreen()),
+              );
             },
           ),
           ListTile(
@@ -214,7 +217,12 @@ class _AdminDrawerState extends State<AdminDrawer> {
               ],
             ),
             onTap: () {
-              
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MainServiceScreen(),
+                ),
+              );
             },
           ),
           // ListTile(

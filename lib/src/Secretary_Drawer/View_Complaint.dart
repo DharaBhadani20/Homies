@@ -14,7 +14,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 class _ViewComplaintState extends State<ViewComplaint> {
-  String _ownername, _houseno, _complainttopic, _description, _contactno;
+  String _ownername, _houseno, _complainttopic, _comdescription, _contactno;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +56,8 @@ class _ViewComplaintState extends State<ViewComplaint> {
         .once()
         .then((DataSnapshot snapshot) {
       setState(() {
-        _description = snapshot.value;
-        print(_description);
+        _comdescription = snapshot.value;
+        print(_comdescription);
       });
     });
     dbref
@@ -86,10 +86,11 @@ class _ViewComplaintState extends State<ViewComplaint> {
       ),
       body: Container(
         height: double.infinity,
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
         margin: EdgeInsets.only(top: 20, left: 5, right: 5),
         decoration: BoxDecoration(
-          color: Colors.grey[400],
+          color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
@@ -154,7 +155,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
             SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Description:",
@@ -162,7 +163,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
                 ),
                 Expanded(
                   child: Text(
-                    _description,
+                    _comdescription,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
@@ -191,7 +192,6 @@ class _ViewComplaintState extends State<ViewComplaint> {
                 Column(
                   children: [
                     SizedBox(
-                      height: 208,
                       width: MediaQuery.of(context).size.width / 1.05,
                       child: WaveWidget(
                         config: CustomConfig(

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:Homies/src/User_Home/Maintenance/Make_Payment.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -82,15 +83,37 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                 width: 200,
                 height: 50,
                 child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(35)),
-                    child: Center(
-                        child: Text(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(35)),
+                  child: Center(
+                    child: Text(
                       _payment,
                       style: TextStyle(fontSize: 20),
-                    ))),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height:30),
+                FlatButton(
+                padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  side: BorderSide(width: 1),
+                ),
+                color: Colors.grey[400],
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MakePayment(),
+                    ),
+                  );
+                },
+                child: Text(
+                  "MAKE A PAYMENT",
+                ),
               ),
               SizedBox(
                 height: 200,
@@ -114,25 +137,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
                   size: Size(double.maxFinite, double.minPositive),
                 ),
               ),
-              // FlatButton(
-              //   padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-              //   shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(30),
-              //     side: BorderSide(width: 1),
-              //   ),
-              //   color: Colors.grey[400],
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => MakePayment(),
-              //       ),
-              //     );
-              //   },
-              //   child: Text(
-              //     "MAKE A PAYMENT",
-              //   ),
-              // ),
+            
             ],
           ),
         ),

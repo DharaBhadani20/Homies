@@ -1,6 +1,7 @@
 import 'package:Homies/src/User_Home/Service/add_booking.dart';
 import 'package:Homies/src/User_Home/Service/maid_staff.dart';
 import 'package:Homies/src/User_Home/Service/watchman_details.dart';
+import 'package:Homies/src/User_Home/Service/vehical.dart';
 import 'package:flutter/material.dart';
 
 class MainServiceScreen extends StatefulWidget {
@@ -70,7 +71,14 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
 
   Widget _buildVehical() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Vehical(),
+          ),
+        );
+      },
       child: SizedBox(
         height: 150,
         width: 150,

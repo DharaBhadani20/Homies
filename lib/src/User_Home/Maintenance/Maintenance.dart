@@ -73,25 +73,25 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
             SizedBox(
               height: 50,
             ),
-            FlatButton(
-              padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-                side: BorderSide(width: 1),
-              ),
-              color: Colors.grey[400],
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MakePayment(),
-                  ),
-                );
-              },
-              child: Text(
-                "MAKE A PAYMENT",
-              ),
-            ),
+            // FlatButton(
+            //   padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(30),
+            //     side: BorderSide(width: 1),
+            //   ),
+            //   color: Colors.grey[400],
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => MakePayment(),
+            //       ),
+            //     );
+            //   },
+            //   child: Text(
+            //     "MAKE A PAYMENT",
+            //   ),
+            // ),
           ],
         ),
       ),

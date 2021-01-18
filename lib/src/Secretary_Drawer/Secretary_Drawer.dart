@@ -1,4 +1,4 @@
-import 'package:Homies/src/Module/Login/Login.dart';
+3import 'package:Homies/src/Module/Login/Login.dart';
 import 'package:Homies/src/Secretary/Notice_Board.dart';
 import 'package:Homies/src/Secretary_Drawer/Arrange_Meeting.dart';
 import 'package:Homies/src/Secretary_Drawer/SecretaryHome.dart';
@@ -6,6 +6,7 @@ import 'package:Homies/src/Secretary_Drawer/SecretaryProfile/SecretaryProfile.da
 import 'package:Homies/src/Secretary_Drawer/MaintenanceDetails.dart';
 import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
 import 'package:Homies/src/Secretary_Drawer/ViewFeedback.dart';
+import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -224,7 +225,17 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('View Meeting Details'),
               ],
             ),
-            onTap: () {},
+
+
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MeetingDetail(),
+                ),
+              );
+            },
+
           ),
           ListTile(
             title: Row(
@@ -304,6 +315,7 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
+
               signOut();
                  Navigator.pushAndRemoveUntil(
           context,
@@ -312,6 +324,10 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                print("Logout");
           //      await widget.bauth.signOut();
             
+
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+
             },
           ),
         ],

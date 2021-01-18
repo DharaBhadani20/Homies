@@ -16,15 +16,15 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
   @override
   Widget build(BuildContext context) {
     dbref
-                  .child("payment")
-                  .child("Payment")
-                  .once()
-                  .then((DataSnapshot snapshot) {
-                setState(() {
-                  _payment = snapshot.value;
-                  print(_payment);
-                });
-              });
+        .child("payment")
+        .child("Payment")
+        .once()
+        .then((DataSnapshot snapshot) {
+      setState(() {
+        _payment = snapshot.value;
+        print(_payment);
+      });
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -38,7 +38,19 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+        height: double.infinity,
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        margin: EdgeInsets.only(top: 20, left: 5, right: 5),
+        decoration: BoxDecoration(
+          color: Colors.grey[400],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+          ],
+        ),
         child: Column(
           children: <Widget>[
             Text(
@@ -48,23 +60,16 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
             SizedBox(
               height: 50,
             ),
-            TextFormField(
-              
-              
-              cursorColor: Colors.grey,
-              cursorHeight: 25,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Colors.grey)),
-                // hintText: "2000/-",
-                
-              ),
-            ),
+            Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color:Colors.black),
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: Text(_payment)),
             SizedBox(
               height: 50,
             ),

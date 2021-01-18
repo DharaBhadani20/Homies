@@ -7,11 +7,13 @@ import 'package:Homies/src/User_Drawer/Report/GiveFeedback.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:Homies/src/authentication.dart';
 
 // ignore: must_be_immutable
 class UserDrawer extends StatefulWidget {
   String uid;
-  UserDrawer({Key key, @required this.uid}) : super(key: key);
+   final BaseAuth bauth;
+  UserDrawer({Key key, this.bauth,@required this.uid}) : super(key: key);
   @override
   _UserDrawerState createState() => _UserDrawerState();
 }
@@ -22,6 +24,18 @@ DatabaseReference dbref = FirebaseDatabase.instance.reference();
 String _fname, _lname;
 
 class _UserDrawerState extends State<UserDrawer> {
+  Future<void> logout() async {
+    try {
+      await auth.signOut();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+          (Route<dynamic> route) => false);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
@@ -194,9 +208,6 @@ class _UserDrawerState extends State<UserDrawer> {
               );
             },
           ),
-          SizedBox(
-            height: 300,
-          ),
           ListTile(
             title: Row(
               children: <Widget>[
@@ -207,13 +218,8 @@ class _UserDrawerState extends State<UserDrawer> {
                 Text('Log Out'),
               ],
             ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Login(),
-                ),
-              );
+            onTap: () async{
+                await widget.bauth.signOut();
             },
           ),
         ],

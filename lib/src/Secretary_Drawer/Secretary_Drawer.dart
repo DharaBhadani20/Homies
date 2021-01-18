@@ -9,23 +9,36 @@ import 'package:Homies/src/Secretary_Drawer/ViewFeedback.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:Homies/src/authentication.dart';
 
 // ignore: must_be_immutable
 class SecretaryDrawer extends StatefulWidget {
   String uid;
-  SecretaryDrawer({Key key, @required this.uid}) : super(key: key);
+   final BaseAuth bauth;
+  SecretaryDrawer({Key key, @required this.uid,this.bauth}) : super(key: key);
   @override
   _SecretaryDrawerState createState() => _SecretaryDrawerState();
 }
+
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 String _fname, _lname;
+
 class _SecretaryDrawerState extends State<SecretaryDrawer> {
+  signOut() async {
+    try {
+      await widget.bauth.signOut();
+     
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
-     dbref
+    dbref
         .child("user")
         .child(_uid)
         .child("first_name")
@@ -73,10 +86,13 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Center(child: Row(
+                  Center(
+                      child: Row(
                     children: [
                       Text(_fname),
-                      SizedBox(width:5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(_lname),
                     ],
                   )),
@@ -208,9 +224,7 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
                 Text('View Meeting Details'),
               ],
             ),
-            onTap: () {
-               
-            },
+            onTap: () {},
           ),
           ListTile(
             title: Row(
@@ -238,7 +252,7 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
-               Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => FeedbackDetail(),
@@ -279,7 +293,7 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               );
             },
           ),
-           ListTile(
+          ListTile(
             title: Row(
               children: <Widget>[
                 Icon(Icons.logout),
@@ -290,7 +304,14 @@ class _SecretaryDrawerState extends State<SecretaryDrawer> {
               ],
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+              signOut();
+                 Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+          (Route<dynamic> route) => false);
+               print("Logout");
+          //      await widget.bauth.signOut();
+            
             },
           ),
         ],

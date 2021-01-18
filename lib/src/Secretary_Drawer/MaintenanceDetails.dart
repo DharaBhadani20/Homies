@@ -53,6 +53,8 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
                     borderSide: BorderSide(color: Colors.grey)),
                 hintText: "Rs...../-",
               ),
+              onSaved: (value) => _payment = value.trim(),
+        onChanged: (value) => _payment = value.trim(),
             ),
             SizedBox(
               height: 50,
@@ -65,11 +67,14 @@ class _MaintenanceDetailsState extends State<MaintenanceDetails> {
               ),
               color: Colors.grey[400],
               onPressed: () {
+                
                  dbref.child('payment').set({
                   "Payment": _payment,
                  
                 });
                 print("payment $_payment");
+                Navigator.pop(context);
+                
               },
               child: Text(
                 "SAVE",

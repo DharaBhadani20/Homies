@@ -7,26 +7,41 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:Homies/src/Secretary_Drawer/View_Complaint.dart';
 import 'package:Homies/src/User_Drawer/Report/meetingdetail.dart';
-
+import 'package:Homies/src/authentication.dart';
 
 
 // ignore: must_be_immutable
 class AdminDrawer extends StatefulWidget {
   String uid;
-  AdminDrawer({Key key, @required this.uid}) : super(key: key);
+ final BaseAuth bauth;
+  AdminDrawer({Key key,this.bauth, @required this.uid}) : super(key: key);
   @override
   _AdminDrawerState createState() => _AdminDrawerState();
 }
+  
+
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
 
 String _fname, _lname;
 
 class _AdminDrawerState extends State<AdminDrawer> {
+  Future<void> logout() async {
+    try {
+      await auth.signOut();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+          (Route<dynamic> route) => false);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String _uid = widget.uid;
-     dbref
+    dbref
         .child("user")
         .child(_uid)
         .child("first_name")
@@ -74,10 +89,13 @@ class _AdminDrawerState extends State<AdminDrawer> {
                   SizedBox(
                     height: 10,
                   ),
-                  Center(child: Row(
+                  Center(
+                      child: Row(
                     children: [
                       Text(_fname),
-                      SizedBox(width:5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(_lname),
                     ],
                   )),
@@ -224,7 +242,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
                       builder: (context) => AdminProfilePage(uid: _uid)));
             },
           ),
-           ListTile(
+          ListTile(
             title: Row(
               children: <Widget>[
                 Icon(Icons.logout),
@@ -234,13 +252,12 @@ class _AdminDrawerState extends State<AdminDrawer> {
                 Text('LogOut'),
               ],
             ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
+            onTap: () async {
+              await widget.bauth.signOut();
             },
           ),
         ],
       ),
-      
     );
   }
 }

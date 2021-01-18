@@ -71,6 +71,19 @@ class _ViewComplaintState extends State<ViewComplaint> {
           ),
         ),
         body: Container(
+          height: double.infinity,
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+        margin: EdgeInsets.only(top: 20, left: 5, right: 5),
+        decoration: BoxDecoration(
+          color: Colors.grey[400],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+          boxShadow: [
+            BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
+          ],
+        ),
           child: Align(
             alignment: Alignment.center,
             child: Column(

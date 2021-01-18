@@ -135,7 +135,7 @@ class _RegistrationState extends State<Registration> {
                       color: Colors.grey,
                     ),
                   ),
-                  // validator: (value) => Validators.validateUser(value),
+                  validator: (value) => Validators.validateUser(value),
                   onSaved: (value) => _mname = value.trim(),
                   onChanged: (value) => _mname = value.trim(),
                 ),
@@ -165,65 +165,57 @@ class _RegistrationState extends State<Registration> {
                 SizedBox(
                   height: 10,
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: TextFormField(
-                        cursorHeight: 25,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          hintText: 'House No.',
-                          prefixIcon: Icon(
-                            Icons.home,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return 'please enter your house no';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) => _houseid = value.trim(),
-                        onChanged: (value) => _houseid = value.trim(),
-                      ),
+                TextFormField(
+                  cursorHeight: 25,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    hintText: 'Address',
+                    prefixIcon: Icon(
+                      Icons.location_on,
+                      color: Colors.grey,
                     ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      width: 250,
-                      child: TextFormField(
-                        cursorHeight: 25,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                              borderSide: BorderSide(color: Colors.grey)),
-                          hintText: 'Address',
-                          prefixIcon: Icon(
-                            Icons.location_on,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return 'please enter your Address';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) => _address = value.trim(),
-                        onChanged: (value) => _address = value.trim(),
-                      ),
-                    ),
-                  ],
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'please enter your Address';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) => _address = value.trim(),
+                  onChanged: (value) => _address = value.trim(),
                 ),
+                // SizedBox(
+                //   width: 100,
+                //   child: TextFormField(
+                //     cursorHeight: 25,
+                //     decoration: InputDecoration(
+                //       enabledBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(32.0),
+                //           borderSide: BorderSide(color: Colors.grey)),
+                //       focusedBorder: OutlineInputBorder(
+                //           borderRadius: BorderRadius.circular(32.0),
+                //           borderSide: BorderSide(color: Colors.grey)),
+                //       hintText: 'House No.',
+                //       prefixIcon: Icon(
+                //         Icons.home,
+                //         color: Colors.grey,
+                //       ),
+                //     ),
+                //     validator: (String value) {
+                //       if (value.isEmpty) {
+                //         return 'please enter your house no';
+                //       }
+                //       return null;
+                //     },
+                //     onSaved: (value) => _houseid = value.trim(),
+                //     onChanged: (value) => _houseid = value.trim(),
+                //   ),
+                // ),
                 SizedBox(
                   height: 20,
                 ),

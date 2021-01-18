@@ -1,3 +1,5 @@
+import 'package:Homies/src/User_Home/Service/add_booking.dart';
+import 'package:Homies/src/User_Home/Service/maid_staff.dart';
 import 'package:Homies/src/User_Home/Service/watchman_details.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +83,7 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
             padding: EdgeInsets.all(45),
             child: Column(
               children: <Widget>[
-                Icon(Icons.add),
+                Icon(Icons.pedal_bike),
                 Text("Vehical"),
               ],
             ),
@@ -93,7 +95,14 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
 
   Widget _buildAddBooking() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AddBooking(),
+          ),
+        );
+      },
       child: SizedBox(
         height: 150,
         width: 150,
@@ -136,7 +145,7 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
             padding: EdgeInsets.fromLTRB(20, 45, 20, 0),
             child: Column(
               children: <Widget>[
-                Icon(Icons.add),
+                Icon(Icons.person_sharp),
                 Text("Watchman\n    Details"),
               ],
             ),
@@ -148,7 +157,14 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
 
   Widget _buildMaidStaff() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MaidDetails(),
+          ),
+        );
+      },
       child: SizedBox(
         height: 150,
         width: 150,
@@ -161,7 +177,7 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
             padding: EdgeInsets.fromLTRB(20, 45, 20, 0),
             child: Column(
               children: <Widget>[
-                Icon(Icons.add),
+                Icon(Icons.person_search_sharp),
                 Text("Maid Staff"),
               ],
             ),

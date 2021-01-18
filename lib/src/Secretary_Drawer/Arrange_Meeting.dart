@@ -16,8 +16,12 @@ class ArrangeMeeting extends StatefulWidget {
 }
 
 class _ArrangeMeetingState extends State<ArrangeMeeting> {
-  bool _success;
-  String _meetingsubject = 'hello', _date = '2020-12-30', _time='15:30', _venue = 'surat', _description = 'blahh';
+  // bool _success;
+  String _meetingsubject = 'hello',
+      _date = '2020-12-30',
+      _time = '15:30',
+      _venue = 'surat',
+      _description = 'blahh';
 
   DateTime pickedDate;
   TimeOfDay time;
@@ -54,7 +58,6 @@ class _ArrangeMeetingState extends State<ArrangeMeeting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 import 'package:wave/wave.dart';
 import 'package:wave/config.dart';
 
@@ -83,20 +84,7 @@ class _ViewComplaintState extends State<ViewComplaint> {
           child: Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: Container(
-        height: double.infinity,
-        margin: EdgeInsets.only(top: 20),
-        padding: EdgeInsets.only(left: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(35),
-            topRight: Radius.circular(35),
-          ),
-          boxShadow: [
-            BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
-          ],
-        ),
+  
 
         body: Container(
           height: double.infinity,

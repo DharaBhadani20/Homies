@@ -406,6 +406,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.3"
+  wave:
+    dependency: "direct main"
+    description:
+      name: wave
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   win32:
     dependency: transitive
     description:
@@ -420,13 +427,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  wave:
-    dependency: "direct main"
-    description:
-      name: wave
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
 sdks:
   dart: ">=2.10.0-110 <2.11.0"
   flutter: ">=1.12.13+hotfix.5 <2.0.0"

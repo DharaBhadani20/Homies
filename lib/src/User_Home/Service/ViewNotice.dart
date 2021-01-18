@@ -74,7 +74,7 @@ class _ViewNoticeState extends State<ViewNotice> {
                 Row(
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                   ],
                 ),

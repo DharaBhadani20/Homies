@@ -1,3 +1,4 @@
+import 'package:Homies/src/User_Home/Service/watchman_details.dart';
 import 'package:flutter/material.dart';
 
 class MainServiceScreen extends StatefulWidget {
@@ -117,7 +118,12 @@ class _MainServiceScreenState extends State<MainServiceScreen> {
 
   Widget _buildWatchmanDetails() {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ViewWatchmanDetails()),
+        );
+      },
       child: SizedBox(
         height: 150,
         width: 150,

@@ -88,7 +88,7 @@ class _MeetingDetailState extends State<MeetingDetail> {
               Row(
                 children: [
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                 ],
               ),

@@ -1,7 +1,9 @@
-import 'package:Homies/src/User_Home/Maintenance/Make_Payment.dart';
+// import 'package:Homies/src/User_Home/Maintenance/Make_Payment.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 DatabaseReference dbref = FirebaseDatabase.instance.reference();
@@ -26,6 +28,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
       });
     });
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text("Maintenance Service"),
@@ -39,6 +42,7 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(
           top: 20,
         ),
@@ -53,52 +57,84 @@ class _MaintenanceScreenState extends State<MaintenanceScreen> {
             BoxShadow(blurRadius: 7.0, color: Colors.white.withOpacity(1)),
           ],
         ),
-        child: Column(
-          children: <Widget>[
-            Text(
-              "Monthly Maintenance",
-              style: TextStyle(fontSize: 30),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            // TextFormField(
-            //   cursorColor: Colors.grey,
-            //   cursorHeight: 25,
-            //   decoration: InputDecoration(
-            //     contentPadding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-            //     enabledBorder: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(30),
-            //         borderSide: BorderSide(color: Colors.grey)),
-            //     focusedBorder: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(30),
-            //         borderSide: BorderSide(color: Colors.grey)),
-            //     // hintText: "2000/-",
-            //   ),
-            // ),
-            SizedBox(
-              height: 50,
-            ),
-            // FlatButton(
-            //   padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(30),
-            //     side: BorderSide(width: 1),
-            //   ),
-            //   color: Colors.grey[400],
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => MakePayment(),
-            //       ),
-            //     );
-            //   },
-            //   child: Text(
-            //     "MAKE A PAYMENT",
-            //   ),
-            // ),
-          ],
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+
+              Text(
+                "Monthly Maintenance",
+                style: TextStyle(fontSize: 30),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                "The maintenance you have to pay",
+                style: TextStyle(fontSize: 23),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 200,
+                height: 50,
+                child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(35)),
+                    child: Center(
+                        child: Text(
+                      _payment,
+                      style: TextStyle(fontSize: 20),
+                    ))),
+              ),
+              SizedBox(
+                height: 200,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.05,
+                child: WaveWidget(
+                  config: CustomConfig(
+                    colors: [
+                      Colors.black.withOpacity(0.1),
+                      Colors.grey.withOpacity(0.2),
+                      Colors.black.withOpacity(0.1),
+                    ],
+                    durations: [4000, 5000, 7000],
+                    heightPercentages: [0.01, 0.05, 0.03],
+                    blur: MaskFilter.blur(BlurStyle.solid, 5),
+                  ),
+                  waveAmplitude: 40.00,
+                  waveFrequency: 3,
+                  backgroundColor: Colors.grey[100],
+                  size: Size(double.maxFinite, double.minPositive),
+                ),
+              ),
+              // FlatButton(
+              //   padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+              //   shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(30),
+              //     side: BorderSide(width: 1),
+              //   ),
+              //   color: Colors.grey[400],
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => MakePayment(),
+              //       ),
+              //     );
+              //   },
+              //   child: Text(
+              //     "MAKE A PAYMENT",
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
     );
